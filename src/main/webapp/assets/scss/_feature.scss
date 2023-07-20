@@ -1,0 +1,105 @@
+/*----------------------------------------*/
+/*  06. Feature CSS
+/*----------------------------------------*/
+
+.single-feature{
+    text-align: center;
+    &.feature-style-two{
+        & .feature-content{
+            .title{
+                font-size: 16px;
+                line-height: 22px;
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+        }
+    }
+    & .feature-image{
+        margin-bottom: 30px;
+    }
+
+    & .feature-content{
+        .title{
+            font-size: 13px;
+            line-height: 17px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .short-desc{
+            font-size: 13px;
+            line-height: 23px;
+            // Responsive
+            @media #{$large-mobile}{
+                max-width: 250px;
+                margin: auto;
+            }
+        }
+    }
+}
+
+.feature-section-2{
+    .single-feature {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        @media (max-width: 767px) {
+            display: block;
+            text-align: center;
+        }
+        .feature-image{
+            margin-bottom: 0;
+            width: 25%;
+            text-align: center;
+            @media (max-width: 767px) {
+                width: 100%;
+            }
+        }
+        .feature-content{
+            width: 75%;
+            padding-left: 15px;
+            @media (max-width: 767px) {
+                width: 100%;
+                padding: 25px 0 25px 0;
+            }
+            > h4{
+                &.title{
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+    [class*="col-"]{
+        &:last-child{
+            .single-feature{
+                .feature-content{
+                    @media (max-width: 767px) {
+                        padding: 25px 0 0 0 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.single-service{
+    .service-img{
+        margin-bottom: 25px;
+        // Responsive
+        @media #{$large-mobile}{
+            margin-bottom: 15px;
+        }
+        img{
+            width: 100%;
+        }
+    }
+    .service-content{
+        .title{
+            font-size: 16px;
+            line-height: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+    }
+
+}
