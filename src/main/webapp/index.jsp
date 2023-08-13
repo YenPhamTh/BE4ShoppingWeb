@@ -1,5 +1,5 @@
-<%@page import="project.model.PCategory"%>
-<%@page import="project.dao.PCategoryDAO"%>
+<%@page import="project.model.Category"%>
+<%@page import="project.dao.CategoryDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Date"%>

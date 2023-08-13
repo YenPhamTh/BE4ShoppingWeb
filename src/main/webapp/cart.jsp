@@ -53,7 +53,7 @@
 						<div class="cart-table table-responsive mb-30">
 							<c:if test="${empty sessionScope.cart.products}">
 								<h3 style="color: red;">
-									No product in cart. <a href="PShop">Continue to purchase</a>
+									No product in cart. <a href="Shop">Continue to purchase</a>
 								</h3>
 							</c:if>
 							<c:if test="${not empty sessionScope.cart.products}">
@@ -83,7 +83,7 @@
 												<td class="pro-subtotal"><span>(Chua biet lam)</span></td>
 												<td class="pro-remove">
 													<button
-														onclick="window.location.href='PCart?command=REMOVE&productId=${product.id}'">
+														onclick="window.location.href='Cart?command=REMOVE&productId=${product.id}'">
 														<i class="fa fa-trash-o"></i>
 													</button>
 												</td>
@@ -163,7 +163,7 @@
 									<div class="cart-summary-button">
 										<c:if test="${not empty sessionScope.user}">
 											<button class="btn"
-												onclick="window.location.href='PCart?command=CHECK_OUT'">Checkout</button>
+												onclick="window.location.href='Cart?command=CHECK_OUT'">Checkout</button>
 										</c:if>
 										<button class="btn">Update Cart</button>
 									</div>

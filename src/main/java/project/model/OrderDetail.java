@@ -1,14 +1,14 @@
 package project.model;
 
-public class POrderDetail {
+public class OrderDetail {
 	private int orderId;
 	private int productId;
 //	private double price;
-	public POrderDetail() {
+	public OrderDetail() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public POrderDetail(int orderId, int productId) {
+	public OrderDetail(int orderId, int productId) {
 		super();
 		this.orderId = orderId;
 		this.productId = productId;

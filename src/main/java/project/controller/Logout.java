@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class PLogout
  */
-@WebServlet("/PLogout")
-public class PLogout extends HttpServlet {
+@WebServlet("/Logout")
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PLogout() {
+    public Logout() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class PLogout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getSession().removeAttribute("user");
-		response.sendRedirect("PShop");
+		response.sendRedirect("Shop");
 		
 	}
 

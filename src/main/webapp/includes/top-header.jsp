@@ -32,7 +32,7 @@
 							<i class="ion-ios-search-strong"></i>
 						</button>
 						<div class="header-search-form">
-							<form action="PShop">
+							<form action="Shop">
 								<input type="text" placeholder="Type and hit enter" name="text"
 									value="${search}">
 								<button>
@@ -64,7 +64,7 @@
 										</div>
 										<div class="cart-item-remove">
 											<button
-												onclick="window.location.href='PCart?command=REMOVE&productId=${product.id}'">
+												onclick="window.location.href='Cart?command=REMOVE&productId=${product.id}'">
 												<i class="fa fa-trash-o"></i>
 											</button>
 										</div>
@@ -83,7 +83,7 @@
 						<!--Mini Cart Dropdown End-->
 					</div>
 					<!-- Header Account Start -->
-					<div class="col-lg-3 d-flex justify-content-end"></div>
+					<div class="sub-header-right"></div>
 					<div class="sub-header-right">
 						<c:if test="${sessionScope.user.name == null}">
 							<b><a href="login.jsp" target="blank">Login</a> </b>
@@ -91,7 +91,7 @@
 						</c:if>
 						<c:if test="${sessionScope.user.name != null}">
 							<b>Hello, ${sessionScope.user.name}</b>
-							<a href="PLogout">Logout</a>
+							<a href="Logout">Logout</a>
 						</c:if>
 
 					</div>
@@ -110,7 +110,7 @@
 						<nav class="main-menu">
 							<ul>
 								<li><a href="index.jsp">Home</a></li>
-								<li><a href="PShop">Shop</a></li>
+								<li><a href="Shop">Shop</a></li>
 								<li><a href="blog.jsp">Blog</a></li>
 								<li><a href="about.jsp">About Us</a></li>
 								<li><a href="contact.jsp">Contact Us</a></li>

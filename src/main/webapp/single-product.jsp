@@ -1,7 +1,7 @@
-<%@page import="project.model.PCategory"%>
-<%@page import="project.dao.PCategoryDAO"%>
-<%@page import="project.model.PProduct"%>
-<%@page import="project.dao.PProductDAO"%>
+<%@page import="project.model.Category"%>
+<%@page import="project.dao.CategoryDAO"%>
+<%@page import="project.model.Product"%>
+<%@page import="project.dao.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Date"%>
@@ -60,8 +60,8 @@
 								<div class="product-details-left">
 									<div class="slider-lg-image-1">
 										<div class="lg-image sidebar-sticky">
-											<img src="${product.imageSrc}" alt=""> <a
-												href="${product.imageSrc}"
+											<img src="data:image/jpg;base64,${product.imageSrc1}" alt=""> <a
+												href="#"
 												class="popup-img venobox vbox-item" data-gall="myGallery"><i
 												class="fa fa-expand"></i></a>
 										</div>
@@ -91,7 +91,7 @@
 									</div>
 									<div class="single-product-quantity">
 										<button class="btn"
-											onclick="window.location.href='PCart?command=ADD_TO_CART&productId=${product.id}'">
+											onclick="window.location.href='Cart?command=ADD_TO_CART&productId=${product.id}'">
 											<i class="ion-bag"></i>add to cart
 										</button>
 

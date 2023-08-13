@@ -8,7 +8,7 @@ public class DbUtil {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://127.0.0.1:3306/be4furniture?useTimezone=true&serverTimezone=UTC", "123", "123");
+					"jdbc:mysql://127.0.0.1:3306/be4_final_project?useTimezone=true&serverTimezone=UTC", "123", "123");
 			return conn;
 		} catch (Exception e) {
 			e.printStackTrace();

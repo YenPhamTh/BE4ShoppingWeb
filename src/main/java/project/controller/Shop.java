@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import project.dao.PCategoryDAO;
-import project.dao.PProductDAO;
-import project.model.PCategory;
-import project.model.PProduct;
+import project.dao.CategoryDAO;
+import project.dao.ProductDAO;
+import project.model.Category;
+import project.model.Product;
 
 /**
  * Servlet implementation class homeServlet
  */
-@WebServlet("/PShop")
-public class PShop extends HttpServlet {
+@WebServlet("/Shop")
+public class Shop extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final int ITEMS_PER_PAGE = 3;
+	private static final int ITEMS_PER_PAGE = 9;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -33,31 +33,31 @@ public class PShop extends HttpServlet {
 			String categoryId = request.getParameter("categoryId");
 			String text = request.getParameter("text");
 //			String pageIndex = request.getParameter("pageIndex");
-			List<PProduct> productList = new ArrayList<PProduct>();
+			List<Product> productList = new ArrayList<Product>();
 
 			// show all categories in sidebar + no of products in each category
-			PCategoryDAO pCategoryDAO = new PCategoryDAO();
-			List<PCategory> list = pCategoryDAO.getAllCategories();
+			CategoryDAO categoryDAO = new CategoryDAO();
+			List<Category> list = categoryDAO.getAllCategories();
 			// temporary show count products in each category
 
 			// show product list by category, by search
-			PProductDAO pProductDao = new PProductDAO();
+			ProductDAO productDao = new ProductDAO();
 
 			if (categoryId != null) {
-				productList = pProductDao.getProductsByCate(Integer.parseInt(categoryId));
+				productList = productDao.getProductsByCate(Integer.parseInt(categoryId));
 
 			} else if (text != null) {
-				productList = pProductDao.getProductsByText(text);
+				productList = productDao.getProductsByText(text);
 
 			} else {
 				int pageIndex = 1;
 				if (request.getParameter("pageIndex") != null) {
 					pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
 				}
-				productList = pProductDao.getProductsByPage(pageIndex, ITEMS_PER_PAGE);
+				productList = productDao.getProductsByPage(pageIndex, ITEMS_PER_PAGE);
 			}
 			// pagination: define total items & number of pages
-			double countItems = pProductDao.getAllProducts().size();
+			double countItems = productDao.getAllProducts().size();
 			int endPage = (int) Math.ceil(countItems / ITEMS_PER_PAGE);
 
 			RequestDispatcher rd = request.getRequestDispatcher("shop.jsp");

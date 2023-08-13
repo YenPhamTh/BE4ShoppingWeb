@@ -1,7 +1,6 @@
 package project.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import project.dao.PProductDAO;
-import project.model.PProduct;
+import project.dao.UserDAO;
+import project.model.User;
 
 /**
- * Servlet implementation class PProductDetail
+ * Servlet implementation class PLoginServlet
  */
-@WebServlet("/PProductDetail")
-public class PProductDetail extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public PProductDetail() {
+	public Login() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,24 +35,7 @@ public class PProductDetail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String productId = request.getParameter("productId");
-		PProduct product = new PProduct();
-		PProductDAO pProductDao = new PProductDAO();
-
-		try {
-			if (productId != null) {
-				product = pProductDao.getProductsById(Integer.parseInt(productId));
-			} else {
-				product = null;
-			}
-			RequestDispatcher rd = request.getRequestDispatcher("single-product.jsp");
-			request.setAttribute("product", product);
-			request.setAttribute("productId", productId);
-			rd.forward(request, response);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -62,7 +45,25 @@ public class PProductDetail extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		UserDAO userDAO = new UserDAO();
+		User user = new User();
+		try {
+			user = userDAO.getUserByEmailPassword(email, password);
+			if (user == null) {
+				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+				request.setAttribute("ErrorMessage", "Invalid Email or Password");
+				rd.forward(request, response);
+			} else {
+				HttpSession session = request.getSession(false);
+				session.setAttribute("user", user);
+				session.setAttribute("userId", user.getId());
+				response.sendRedirect("Shop");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		doGet(request, response);
 	}
-
 }

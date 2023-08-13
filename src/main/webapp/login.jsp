@@ -1,7 +1,7 @@
-<%@page import="project.model.PCategory"%>
-<%@page import="project.dao.PCategoryDAO"%>
-<%@page import="project.model.PProduct"%>
-<%@page import="project.dao.PProductDAO"%>
+<%@page import="project.model.Category"%>
+<%@page import="project.dao.CategoryDAO"%>
+<%@page import="project.model.Product"%>
+<%@page import="project.dao.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Date"%>
@@ -65,7 +65,7 @@
 							</div>
 							<div class="login-form">
 							<h4>${ErrorMessage}</h4>
-								<form action="PLogin" method="post">
+								<form action="Login" method="post">
 									<div class="form-fild">
 										<p>
 											<label>Email address <span

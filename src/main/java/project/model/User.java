@@ -1,15 +1,15 @@
 package project.model;
 
-public class PUser {
+public class User {
 	private int id;
 	private String name;
 	private String email;
 	private String password;
-	public PUser() {
+	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PUser(int id, String name, String email, String password) {
+	public User(int id, String name, String email, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -17,13 +17,13 @@ public class PUser {
 		this.password = password;
 	}
 	
-	public PUser(String name, String email, String password) {
+	public User(String name, String email, String password) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
-	public PUser(String email, String password) {
+	public User(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;

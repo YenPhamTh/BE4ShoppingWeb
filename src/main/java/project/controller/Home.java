@@ -11,21 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import project.dao.PCategoryDAO;
-import project.model.PCategory;
+import project.dao.CategoryDAO;
+import project.model.Category;
 
 
 /**
  * Servlet implementation class homeServlet
  */
-@WebServlet("/PHome")
-public class PHome extends HttpServlet {
+@WebServlet("/Home")
+public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PHome() {
+    public Home() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,8 +36,8 @@ public class PHome extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			PCategoryDAO pCategoryDAO = new PCategoryDAO();
-			List<PCategory> list = pCategoryDAO.getAllCategories();
+			CategoryDAO categoryDAO = new CategoryDAO();
+			List<Category> list = categoryDAO.getAllCategories();
 			System.out.println(list.size());
 			
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");

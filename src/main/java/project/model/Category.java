@@ -1,20 +1,20 @@
 package project.model;
 
-public class PCategory {
+public class Category {
 
 	private int id;
 	private String name;
 	private int countItems;
-	public PCategory() {
+	public Category() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PCategory(int id, String name) {
+	public Category(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-	public PCategory(int id, String name, int countItems) {
+	public Category(int id, String name, int countItems) {
 		super();
 		this.id = id;
 		this.name = name;

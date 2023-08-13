@@ -3,23 +3,23 @@ package project.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-import project.model.PProduct;
+import project.model.Product;
 
-public class PCartSession {
-	private Set<PProduct> products;
+public class CartSession {
+	private Set<Product> products;
 	private double totalPrice;
 	private int userId;
 	
 	
-	public PCartSession() {
-		this.products = new HashSet<PProduct>();
+	public CartSession() {
+		this.products = new HashSet<Product>();
 		
 	}
 	
-	public Set<PProduct> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
-	public void setProducts(Set<PProduct> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 

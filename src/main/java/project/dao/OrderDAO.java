@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import project.dto.PCartSession;
-import project.model.PProduct;
+import project.dto.CartSession;
+import project.model.Product;
 import project.util.DbUtil;
 
-public class POrderDAO {
-	public boolean addOrderWithItems(PCartSession cart ) throws SQLException {
+public class OrderDAO {
+	public boolean addOrderWithItems(CartSession cart ) throws SQLException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -21,7 +21,7 @@ public class POrderDAO {
 			// prevent auto-commit to database:
 			conn.setAutoCommit(false);
 			// insert order into database - id = auto generated
-			String sql = "INSERT INTO `be4furniture`.`order` (`userId`, `totalPrice`) VALUES (?, ?);";
+			String sql = "INSERT INTO `be4_final_project`.`order` (`user_id`, `total_price`) VALUES (?, ?);";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			// set parameters
@@ -33,9 +33,9 @@ public class POrderDAO {
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				int orderId = rs.getInt(1);
-				for(PProduct product : cart.getProducts()) {
-					ps = conn.prepareStatement("INSERT INTO `be4furniture`.`order_detail` "
-							+ "(`orderId`, `productId`, `price`) VALUES (?,?,?)");
+				for(Product product : cart.getProducts()) {
+					ps = conn.prepareStatement("INSERT INTO `be4_final_project`.`order_detail` "
+							+ "(`order_id`, `product_id`, `price`) VALUES (?,?,?)");
 				ps.setInt(1, orderId);
 				ps.setInt(2, product.getId());
 				ps.setDouble(3, product.getDiscountedPrice());

@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import project.dao.POrderDAO;
-import project.dao.PProductDAO;
-import project.dto.PCartSession;
-import project.model.PProduct;
-import project.model.PUser;
+import project.dao.OrderDAO;
+import project.dao.ProductDAO;
+import project.dto.CartSession;
+import project.model.Product;
+import project.model.User;
 
-@WebServlet("/PCart")
-public class PCart extends HttpServlet {
+@WebServlet("/Cart")
+public class Cart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final String REQUEST_REMOVE_ITEM_FROM_CART = "REMOVE";
 	//private final String REQUEST_ADD_TO_CART = "ADD_TO_CART";
 	private final String REQUEST_CHECK_OUT = "CHECK_OUT";
 
-	public PCart() {
+	public Cart() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,7 +35,7 @@ public class PCart extends HttpServlet {
 			String command = request.getParameter("command");
 			String productId = request.getParameter("productId");
 			HttpSession session = request.getSession();
-			PCartSession cart = (PCartSession) session.getAttribute("cart");
+			CartSession cart = (CartSession) session.getAttribute("cart");
 
 			switch (command) {
 			case REQUEST_REMOVE_ITEM_FROM_CART: {
@@ -61,15 +61,15 @@ public class PCart extends HttpServlet {
 
 	public void addToCart(String productId, HttpServletRequest request, HttpServletResponse response)
 			throws NumberFormatException, SQLException, IOException {
-		PProductDAO productService = new PProductDAO();
-		PProduct product = productService.getProductsById(Integer.parseInt(productId));
+		ProductDAO productService = new ProductDAO();
+		Product product = productService.getProductsById(Integer.parseInt(productId));
 
 		HttpSession session = request.getSession();
-		PCartSession cart = (PCartSession) session.getAttribute("cart");
+		CartSession cart = (CartSession) session.getAttribute("cart");
 
 		if (cart == null) {
-			cart = new PCartSession();
-			PUser user = (PUser) session.getAttribute("user");
+			cart = new CartSession();
+			User user = (User) session.getAttribute("user");
 			cart.setUserId(user.getId());
 		}
 		boolean isAddedSuccess = cart.getProducts().add(product);
@@ -81,16 +81,16 @@ public class PCart extends HttpServlet {
 			session.setAttribute("cart", cart);
 			// session.setAttribute("product", product);
 		}
-		response.sendRedirect("PShop");
+		response.sendRedirect("Shop");
 	}
 
 	public void removeFromCart(String productId, HttpServletRequest request, HttpServletResponse response)
 			throws NumberFormatException, SQLException, IOException {
-		PProductDAO productService = new PProductDAO();
-		PProduct product = productService.getProductsById(Integer.parseInt(productId));
+		ProductDAO productService = new ProductDAO();
+		Product product = productService.getProductsById(Integer.parseInt(productId));
 
 		HttpSession session = request.getSession();
-		PCartSession cart = (PCartSession) session.getAttribute("cart");
+		CartSession cart = (CartSession) session.getAttribute("cart");
 		// remove product:
 		cart.getProducts().remove(product);
 		cart.setTotalPrice(cart.getTotalPrice() - product.getDiscountedPrice());
@@ -98,13 +98,13 @@ public class PCart extends HttpServlet {
 		response.sendRedirect("cart.jsp");
 	}
 
-	public void checkout(PCartSession cart, HttpServletRequest request, HttpServletResponse response)
+	public void checkout(CartSession cart, HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		HttpSession session = request.getSession();
-		cart = (PCartSession) session.getAttribute("cart");
+		cart = (CartSession) session.getAttribute("cart");
 
 		// create order - return order id
-		POrderDAO orderService = new POrderDAO();
+		OrderDAO orderService = new OrderDAO();
 		orderService.addOrderWithItems(cart);
 
 		// create order summary:

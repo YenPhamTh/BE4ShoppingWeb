@@ -2,24 +2,24 @@ package project.model;
 
 import java.util.Date;
 
-public class POrder {
+public class Order {
 	private int id;
 	private int userId;
 	private Date submitDate;
 	private boolean approve;
 	private double totalPrice;
-	public POrder() {
+	public Order() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public POrder(int id, int userId, Date submitDate, boolean approve) {
+	public Order(int id, int userId, Date submitDate, boolean approve) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.submitDate = submitDate;
 		this.approve = approve;
 	}
-	public POrder(int userId, double totalPrice) {
+	public Order(int userId, double totalPrice) {
 		super();
 		this.userId = userId;
 		this.totalPrice = totalPrice;

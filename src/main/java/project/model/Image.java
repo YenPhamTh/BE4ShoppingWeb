@@ -1,14 +1,14 @@
 package project.model;
 
-public class PImage {
+public class Image {
 	private int id;
 	private String src;
 	private int productId;
-	public PImage() {
+	public Image() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PImage(int id, String src, int productId) {
+	public Image(int id, String src, int productId) {
 		super();
 		this.id = id;
 		this.src = src;

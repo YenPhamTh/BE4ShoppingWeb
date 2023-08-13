@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import project.dao.PRegisterDAO;
-import project.model.PUser;
+import project.dao.RegisterDAO;
+import project.model.User;
 
 /**
  * Servlet implementation class registrationServlet
  */
-@WebServlet("/PRegister")
-public class PRegister extends HttpServlet {
+@WebServlet("/Register")
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +37,7 @@ public class PRegister extends HttpServlet {
 		System.out.println(username);
 
 		// Validate user:
-		PUser account = new PUser(username, email, password);
+		User account = new User(username, email, password);
 		List<String> errorsMessage = validateUser(account);
 		if (!errorsMessage.isEmpty()) {
 			RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
@@ -48,7 +48,7 @@ public class PRegister extends HttpServlet {
 
 		}
 		// If valid --> input database
-		PRegisterDAO registerService = new PRegisterDAO();
+		RegisterDAO registerService = new RegisterDAO();
 		try {
 			boolean isInsertSuccess = registerService.registerAccount(account);
 			System.out.println(isInsertSuccess);
@@ -65,7 +65,7 @@ public class PRegister extends HttpServlet {
 		}
 	}
 
-	private List<String> validateUser(PUser account) {
+	private List<String> validateUser(User account) {
 		// Validate user input
 		List<String> errors = new ArrayList<String>();
 		Pattern p = Pattern.compile("^[a-zA-Z0-9]*$");

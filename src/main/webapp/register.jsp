@@ -53,7 +53,7 @@
 								<h2>Register</h2>
 							</div>
 							<div class="register-form">
-								<form action="PRegister" method="post">
+								<form action="Register" method="post">
 									<div class="form-fild">
 										<p>
 											<label>Username<span

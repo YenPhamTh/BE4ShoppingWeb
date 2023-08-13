@@ -1476,7 +1476,7 @@ header.header.is-sticky .header-bottom .main-menu > ul > li > a {
   border-color: #ffffff;
 }
 .sub-header-right{
-	width: 50px;
+	width: 100px;
 }
 /*-- Search Form --*/
 .header-search-form {

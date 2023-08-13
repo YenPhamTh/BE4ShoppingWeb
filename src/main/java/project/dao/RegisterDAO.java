@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import project.model.PUser;
+import project.model.User;
 import project.util.DbUtil;
 
-public class PRegisterDAO {
+public class RegisterDAO {
 
-	public boolean registerAccount(PUser account) throws SQLException {
+	public boolean registerAccount(User account) throws SQLException {
 		// connect to DB
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -19,7 +19,7 @@ public class PRegisterDAO {
 			
 			//--> table Category -->
 			// Run query "Select * from category"
-			ps = conn.prepareStatement("INSERT INTO `be4furniture`.`account` (`user`, `email`, `password`) VALUES (?, ?, ?);");
+			ps = conn.prepareStatement("INSERT INTO `be4_final_project`.`account` (`user`, `email`, `password`) VALUES (?, ?, ?);");
 			ps.setString(1, account.getName());
 			ps.setString(2, account.getEmail());
 			ps.setString(3, account.getPassword());

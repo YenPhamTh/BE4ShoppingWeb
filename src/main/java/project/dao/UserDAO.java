@@ -4,27 +4,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import project.model.PCategory;
+import project.model.User;
 import project.util.DbUtil;
 
-public class PCategoryDAO {
+public class UserDAO {
 	// function: public [dataType] [functionName](parameters){}
-	public List<PCategory> getAllCategories() throws SQLException {
+	public User getUserByEmailPassword(String email, String password) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<PCategory> list = new ArrayList<PCategory>();
+		User user = null;
 		try {
 			conn = DbUtil.makeConnection();
 
-			ps = conn.prepareStatement("Select * from category");
+			ps = conn.prepareStatement("Select * from account where email = ? AND password = ? ");
+			ps.setString(1,email );
+			ps.setString(2,password );
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new PCategory(rs.getInt(1), rs.getString(2)));
+				user = new User(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,6 +39,6 @@ public class PCategoryDAO {
 				conn.close();
 			}
 		}
-		return list;
+		return user;
 	}
 }

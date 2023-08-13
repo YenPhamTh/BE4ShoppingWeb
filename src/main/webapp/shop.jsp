@@ -1,7 +1,7 @@
-<%@page import="project.model.PCategory"%>
-<%@page import="project.dao.PCategoryDAO"%>
-<%@page import="project.model.PProduct"%>
-<%@page import="project.dao.PProductDAO"%>
+<%@page import="project.model.Category"%>
+<%@page import="project.dao.CategoryDAO"%>
+<%@page import="project.model.Product"%>
+<%@page import="project.dao.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Date"%>
@@ -24,7 +24,7 @@
 		<!--Header section start-->
 		<jsp:include page="/includes/top-header.jsp"></jsp:include>
 		<!--Header section end-->
-		
+
 		<!-- Page Banner Section Start -->
 		<div class="page-banner-section section bg-image"
 			data-bg="https://htmldemo.net/ginza/ginza/assets/images/bg/breadcrumb.jpg">
@@ -75,8 +75,10 @@
 													<option value="Relevance">Relevance</option>
 													<option value="Name, A to Z">Name, A to Z</option>
 													<option value="Name, Z to A">Name, Z to A</option>
-													<option value="Price, low to high">Price, low to high</option>
-													<option value="Price, high to low">Price, high to low</option>
+													<option value="Price, low to high">Price, low to
+														high</option>
+													<option value="Price, high to low">Price, high to
+														low</option>
 												</select>
 											</div>
 										</div>
@@ -92,11 +94,9 @@
 										<h3 class="sidebar-title">Product categories</h3>
 										<ul class="sidebar-list">
 											<c:forEach var="category" items="${categoryList}">
-												<li><a href="PShop?categoryId=${category.id}"><i
-														class="ion-plus"></i> ${category.name}
-														<!-- <span class="count">
-															(${count})</span> -->
-														</a></li>
+												<li><a href="Shop?categoryId=${category.id}"><i
+														class="ion-plus"></i> ${category.name} <!-- <span class="count">
+															(${count})</span> --> </a></li>
 												<br>
 											</c:forEach>
 										</ul>
@@ -117,9 +117,12 @@
 									<div class="common-sidebar-widget">
 										<h3 class="sidebar-title">Filter by</h3>
 										<ul class="sidebar-list">
-											<li><a href="#"><i class="ion-plus"></i>Gold <span class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Green <span class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>White <span class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Gold <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Green <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>White <span
+													class="count">(1)</span></a></li>
 										</ul>
 									</div>
 									<!-- Single Sidebar End  -->
@@ -163,23 +166,30 @@
 															<div class="row">
 																<!--  Single Grid product Start -->
 																<c:forEach var="product" items="${productList}">
-																	<div class="col-lg-4 col-md-6 col-sm-6">																	
+																	<div class="col-lg-4 col-md-6 col-sm-6">
 																		<div class="single-grid-product mb-30">
 																			<div class="product-image">
 																				<div class="product-label">
-																					<span class="sale">Discount: TBC function</span>
-																					<span class="new">NewProduct ${product.lableIsNew}</span>
+																					<c:if test = "${product.discountedPrice > 0}">
+																						<span class="sale">Sales</span>
+																					</c:if>
+																					
+																					<c:if test="${product.lableIsNew == true}">
+																						<span class="new">New</span>
+																					</c:if>
 																				</div>
-																				<a href="PProductDetail?productId=${product.id}">
-																					<img src="${product.imageSrc}" class="img-fluid"
-																					alt=""> <img src="${product.imageSrc}"
-																					class="img-fluid" alt="">
+																				<a href="ProductDetail?productId=${product.id}">
+																					<img src="#" class="img-fluid"
+																					alt="" >
+																					<img src="#"
+																					class="img-fluid" alt="" >
 																				</a>
 
 																				<div
 																					class="product-action d-flex justify-content-between">
 																					<a class="product-btn"
-																						href="PProductDetail?productId=${product.id}">Add to Cart</a>
+																						href="ProductDetail?productId=${product.id}">Add
+																						to Cart</a>
 																					<ul class="d-flex">
 																						<li><a href="wishlist.jsp"><i
 																								class="ion-android-favorite-outline"></i></a></li>
@@ -193,12 +203,13 @@
 																			</div>
 																			<div class="product-content">
 																				<div class="product-category-rating">
-																					<span class="category"><a href="shop.jsp">Category: ${product.categoryId}</a></span>
-																					<span class="rating">Rating: ${product.rating} </span>
+																					<span class="category"><a href="shop.jsp">Category:
+																							${product.categoryId}</a></span> <span class="rating">Rating:
+																						${product.rating} </span>
 																				</div>
 
 																				<h3 class="title">
-																					<a href="PProductDetail?productId=${product.id}">${product.title}</a>
+																					<a href="ProductDetail?productId=${product.id}">${product.title}</a>
 																				</h3>
 																				<p class="product-price">
 																					<span class="discounted-price">$${product.discountedPrice}</span>
@@ -221,8 +232,9 @@
 										<div class="col">
 											<ul class="page-pagination">
 												<c:forEach begin="1" end="${endPage}" var="i">
-												<li class="${pageIndex == i?"active":""}" ><a href="PShop?pageIndex=${i}">${i}</a></li>
-												</c:forEach>												
+													<li class="${pageIndex == i?"active":""}" ><a
+														href="Shop?pageIndex=${i}">${i}</a></li>
+												</c:forEach>
 											</ul>
 										</div>
 									</div>
