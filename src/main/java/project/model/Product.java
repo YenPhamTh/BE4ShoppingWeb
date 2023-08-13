@@ -8,9 +8,10 @@ public class Product {
 	private boolean lableIsNew;
 	private double price;
 	private double discountedPrice;
-	private int categoryId;
+	private String category;
 	private int rating;
 	private String description;
+	private int collectionId;
 	private String imageSrc1;
 	private String imageSrc2;
 	private String imageSrc3;
@@ -23,8 +24,8 @@ public class Product {
 	}
 	
 	
-	public Product(int id, String title, boolean lableIsNew, double price, double discountedPrice, int categoryId,
-			int rating, String description, String imageSrc1, String imageSrc2, String imageSrc3, String imageSrc4,
+	public Product(int id, String title, boolean lableIsNew, double price, double discountedPrice, String category,
+			int rating, String description, int collectionId, String imageSrc1, String imageSrc2, String imageSrc3, String imageSrc4,
 			String imageSrc5) {
 		super();
 		this.id = id;
@@ -32,9 +33,10 @@ public class Product {
 		this.lableIsNew = lableIsNew;
 		this.price = price;
 		this.discountedPrice = discountedPrice;
-		this.categoryId = categoryId;
+		this.category = category;
 		this.rating = rating;
 		this.description = description;
+		this.collectionId = collectionId;
 		this.imageSrc1 = imageSrc1;
 		this.imageSrc2 = imageSrc2;
 		this.imageSrc3 = imageSrc3;
@@ -93,13 +95,13 @@ public class Product {
 	}
 
 
-	public int getCategoryId() {
-		return categoryId;
+	public String getCategory() {
+		return category;
 	}
 
 
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 
@@ -175,8 +177,8 @@ public class Product {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, lableIsNew, price, discountedPrice, categoryId,
-				rating, description, imageSrc1, imageSrc2, imageSrc3, imageSrc4,
+		return Objects.hash(id, title, lableIsNew, price, discountedPrice, category,
+				rating, description, collectionId, imageSrc1, imageSrc2, imageSrc3, imageSrc4,
 				imageSrc5);
 	}
 	@Override
@@ -188,7 +190,7 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return categoryId == other.categoryId;
+		return category == other.category;
 	}
 	
 }

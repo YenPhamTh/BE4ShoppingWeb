@@ -18,9 +18,7 @@
 				<!-- Header Logo Start -->
 				<div class="col-lg-6">
 					<div class="header-logo text-center">
-						<a href="index.jsp"><img
-							src="https://htmldemo.net/ginza/ginza/assets/images/logo.png"
-							alt=""></a>
+						<a href="index.jsp"><img src="assets/images/logo.jpg" alt=""></a>
 					</div>
 				</div>
 				<!-- Header Logo Start -->
@@ -53,14 +51,21 @@
 								<c:forEach var="product" items="${sessionScope.cart.products}">
 									<li class="single-cart-item">
 										<div class="cart-img">
-											<a href="cart.jsp"><img src="${product.imageSrc}" alt=""></a>
+											<a href="cart.jsp"><img src="${product.imageSrc1}" alt=""></a>
 										</div>
 										<div class="cart-content">
 											<h5 class="product-name">
 												<a href="single-product.jsp">${product.title}</a>
 											</h5>
-											<span class="product-quantity">1—</span> <span
-												class="product-price">$${product.discountedPrice}</span>
+											<span class="product-quantity">1—</span>
+											<c:if test="${product.discountedPrice > 0}">
+												<span class="discounted-price">$${product.discountedPrice}</span>
+												<span class="main-price discounted">$${product.price}</span>
+											</c:if>
+											<c:if test="${product.discountedPrice == 0}">
+												<span class="discounted-price">$${product.price}</span>
+											</c:if>
+
 										</div>
 										<div class="cart-item-remove">
 											<button

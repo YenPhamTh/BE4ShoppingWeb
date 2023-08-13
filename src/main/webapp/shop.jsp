@@ -12,7 +12,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Shop || Ginza</title>
+<title>Shop || LinhYen</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- All css files are included here. -->
@@ -27,7 +27,7 @@
 
 		<!-- Page Banner Section Start -->
 		<div class="page-banner-section section bg-image"
-			data-bg="https://htmldemo.net/ginza/ginza/assets/images/bg/breadcrumb.jpg">
+			data-bg="assets/images/bg/banner.jpg">
 			<div class="container">
 				<div class="row">
 					<div class="col">
@@ -94,8 +94,8 @@
 										<h3 class="sidebar-title">Product categories</h3>
 										<ul class="sidebar-list">
 											<c:forEach var="category" items="${categoryList}">
-												<li><a href="Shop?categoryId=${category.id}"><i
-														class="ion-plus"></i> ${category.name} <!-- <span class="count">
+												<li><a href="Shop?categoryId=${category.id}"><input
+														type="checkbox"> ${category.name} <!-- <span class="count">
 															(${count})</span> --> </a></li>
 												<br>
 											</c:forEach>
@@ -115,13 +115,33 @@
 									<!-- Single Sidebar End  -->
 									<!-- Single Sidebar Start  -->
 									<div class="common-sidebar-widget">
-										<h3 class="sidebar-title">Filter by</h3>
+										<h3 class="sidebar-title">Filter by color</h3>
 										<ul class="sidebar-list">
-											<li><a href="#"><i class="ion-plus"></i>Gold <span
+											<li><a href="#"><i class="ion-plus"></i>Blue <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Red <span
 													class="count">(1)</span></a></li>
 											<li><a href="#"><i class="ion-plus"></i>Green <span
 													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Cream <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Navy <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Pink <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Rose<span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Silver <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Burgundy <span
+													class="count">(1)</span></a></li>
 											<li><a href="#"><i class="ion-plus"></i>White <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Chocolate <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Brown <span
+													class="count">(1)</span></a></li>
+											<li><a href="#"><i class="ion-plus"></i>Beige <span
 													class="count">(1)</span></a></li>
 										</ul>
 									</div>
@@ -143,18 +163,6 @@
 										</div>
 									</div>
 									<!-- Single Sidebar End  -->
-									<!-- Single Sidebar Start  -->
-									<div class="common-sidebar-widget">
-										<h3 class="sidebar-title">Product tags</h3>
-										<ul class="sidebar-tag">
-											<li><a href="#">blouse</a></li>
-											<li><a href="#">clothes</a></li>
-											<li><a href="#">fashion</a></li>
-											<li><a href="#">handbag</a></li>
-											<li><a href="#">laptop</a></li>
-										</ul>
-									</div>
-									<!-- Single Sidebar End  -->
 								</div>
 								<div class="col-lg-9 order-lg-2 order-1">
 									<div class="row">
@@ -170,19 +178,18 @@
 																		<div class="single-grid-product mb-30">
 																			<div class="product-image">
 																				<div class="product-label">
-																					<c:if test = "${product.discountedPrice > 0}">
+																					<c:if test="${product.discountedPrice < product.price}">
 																						<span class="sale">Sales</span>
 																					</c:if>
-																					
+
 																					<c:if test="${product.lableIsNew == true}">
 																						<span class="new">New</span>
 																					</c:if>
 																				</div>
 																				<a href="ProductDetail?productId=${product.id}">
-																					<img src="#" class="img-fluid"
-																					alt="" >
-																					<img src="#"
-																					class="img-fluid" alt="" >
+																					<img src="${product.imageSrc1}" class="img-fluid"
+																					alt=""> <img src="${product.imageSrc2}"
+																					class="img-fluid" alt="">
 																				</a>
 
 																				<div
@@ -203,8 +210,8 @@
 																			</div>
 																			<div class="product-content">
 																				<div class="product-category-rating">
-																					<span class="category"><a href="shop.jsp">Category:
-																							${product.categoryId}</a></span> <span class="rating">Rating:
+																					<span class="category"><a href="shop.jsp">
+																							${product.category}</a></span> <span class="rating">Rating:
 																						${product.rating} </span>
 																				</div>
 
@@ -212,8 +219,14 @@
 																					<a href="ProductDetail?productId=${product.id}">${product.title}</a>
 																				</h3>
 																				<p class="product-price">
-																					<span class="discounted-price">$${product.discountedPrice}</span>
-																					<span class="main-price discounted">$${product.price}</span>
+																					<c:if test="${product.discountedPrice < product.price}">
+																						<span class="discounted-price">$${product.discountedPrice}</span>
+																						<span class="main-price discounted">$${product.price}</span>
+																					</c:if>
+																					<c:if test="${product.discountedPrice == product.price}">
+																						<span class="discounted-price">$${product.price}</span>
+																					</c:if>
+
 																				</p>
 																			</div>
 																		</div>

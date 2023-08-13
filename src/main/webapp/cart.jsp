@@ -72,7 +72,7 @@
 										<c:forEach var="product" items="${sessionScope.cart.products}">
 											<tr>
 												<td class="pro-thumbnail"><a href="#"><img
-														src="${product.imageSrc}" alt="Product"></a></td>
+														src="${product.imageSrc1}" alt="Product"></a></td>
 												<td class="pro-title"><a href="#">${product.title}</a></td>
 												<td class="pro-price"><span>$${product.discountedPrice}</span></td>
 												<td class="pro-quantity">

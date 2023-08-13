@@ -60,7 +60,7 @@
 								<div class="product-details-left">
 									<div class="slider-lg-image-1">
 										<div class="lg-image sidebar-sticky">
-											<img src="data:image/jpg;base64,${product.imageSrc1}" alt=""> <a
+											<img src="${product.imageSrc1}" alt=""> <a
 												href="#"
 												class="popup-img venobox vbox-item" data-gall="myGallery"><i
 												class="fa fa-expand"></i></a>
@@ -101,8 +101,7 @@
 											href="#" class="add-compare">Compare</a>
 									</div>
 									<div class="product-meta">
-										<span class="posted-in"> Categories: <a href="#">Accessories</a>,
-											<a href="#">Electronics</a>
+										<span class="posted-in"> Categories: <a href="#">${product.category}</a>
 										</span>
 									</div>
 									<div class="single-product-sharing">
