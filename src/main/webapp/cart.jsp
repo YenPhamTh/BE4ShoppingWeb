@@ -5,31 +5,28 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Cart || Ginza</title>
+<title>Shop || LinhYen</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!-- All css files are included here. -->
 <jsp:include page="/includes/css-source.jsp"></jsp:include>
-
 </head>
 
 <body>
 
 	<div id="main-wrapper">
-
 		<!--Header section start-->
 		<jsp:include page="/includes/top-header.jsp"></jsp:include>
 		<!--Header section end-->
 
 		<!-- Page Banner Section Start -->
 		<div class="page-banner-section section bg-image"
-			data-bg="https://htmldemo.net/ginza/ginza/assets/images/bg/breadcrumb.jpg">
+			data-bg="assets/images/bg/banner.jpg">
 			<div class="container">
 				<div class="row">
 					<div class="col">
 						<div class="page-banner text-center">
-							<h2>Shopping Cart</h2>
+							<h2>Shop</h2>
 							<ul class="page-breadcrumb">
 								<li><a href="index.jsp">Home</a></li>
 								<li>Shopping Cart</li>
@@ -51,12 +48,12 @@
 					<div class="col-12">
 						<!-- Cart Table -->
 						<div class="cart-table table-responsive mb-30">
-							<c:if test="${empty sessionScope.cart.products}">
+							<c:if test="${empty sessionScope.cart.orderItems}">
 								<h3 style="color: red;">
 									No product in cart. <a href="Shop">Continue to purchase</a>
 								</h3>
 							</c:if>
-							<c:if test="${not empty sessionScope.cart.products}">
+							<c:if test="${not empty sessionScope.cart.orderItems}">
 								<table class="table">
 									<thead>
 										<tr>
@@ -64,26 +61,26 @@
 											<th class="pro-title">Product</th>
 											<th class="pro-price">Price</th>
 											<th class="pro-quantity">Quantity</th>
-											<th class="pro-subtotal">SubTotal</th>
 											<th class="pro-remove">Remove</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="product" items="${sessionScope.cart.products}">
+										<c:forEach var="orderItem"
+											items="${sessionScope.cart.orderItems}">
 											<tr>
 												<td class="pro-thumbnail"><a href="#"><img
-														src="${product.imageSrc1}" alt="Product"></a></td>
-												<td class="pro-title"><a href="#">${product.title}</a></td>
-												<td class="pro-price"><span>$${product.discountedPrice}</span></td>
-												<td class="pro-quantity">
-													<div class="pro-qty">
-														<input type="number" value="1" name="quantity">
-													</div>
+														src="${orderItem.product.imageSrc1}" alt="Product"></a></td>
+												<td class="pro-title"><a href="#">${orderItem.product.title}</a></td>
+												<td class="pro-price"><span>$${orderItem.product.discountedPrice}</span></td>
+												<td class="pro-quantity"><a class="dec qtybtn"
+													href="OrderQty?action=dec&productId=${orderItem.product.id}">-</a>
+													<input type="number" value="${orderItem.quantity}"
+													name="quantity"> <a class="inc qtybtn"
+													href="OrderQty?action=inc&productId=${orderItem.product.id}">+</a>
 												</td>
-												<td class="pro-subtotal"><span>(Chua biet lam)</span></td>
 												<td class="pro-remove">
 													<button
-														onclick="window.location.href='Cart?command=REMOVE&productId=${product.id}'">
+														onclick="window.location.href='Cart?command=REMOVE&productId=${orderItem.product.id}'">
 														<i class="fa fa-trash-o"></i>
 													</button>
 												</td>
@@ -99,47 +96,23 @@
 							<div class="col-lg-6 col-12 mb-5">
 								<!-- Calculate Shipping -->
 								<div class="calculate-shipping">
-									<h4>Calculate Shipping</h4>
+									<h4>Promotion: Freeship for all orders</h4>
 									<form action="#">
 										<div class="row">
-											<div class="col-md-6 col-12 mb-25">
-												<select class="nice-select">
-													<option>Bangladesh</option>
-													<option>China</option>
-													<option>country</option>
-													<option>India</option>
-													<option>Japan</option>
-												</select>
-											</div>
-											<div class="col-md-6 col-12 mb-25">
-												<select class="nice-select">
-													<option>Dhaka</option>
-													<option>Barisal</option>
-													<option>Khulna</option>
-													<option>Comilla</option>
-													<option>Chittagong</option>
-												</select>
-											</div>
-											<div class="col-md-6 col-12 mb-25">
-												<input type="text" placeholder="Postcode / Zip">
-											</div>
-											<div class="col-md-6 col-12 mb-25">
-												<button class="btn">Estimate</button>
-											</div>
+											<div class="col-md-6 col-12 mb-25"></div>
+											<div class="col-md-6 col-12 mb-25"></div>
+											<div class="col-md-6 col-12 mb-25"></div>
+											<div class="col-md-6 col-12 mb-25"></div>
 										</div>
 									</form>
 								</div>
 								<!-- Discount Coupon -->
 								<div class="discount-coupon">
-									<h4>Discount Coupon Code</h4>
+									<h4></h4>
 									<form action="#">
 										<div class="row">
-											<div class="col-md-6 col-12 mb-25">
-												<input type="text" placeholder="Coupon Code">
-											</div>
-											<div class="col-md-6 col-12 mb-25">
-												<button class="btn">Apply Code</button>
-											</div>
+											<div class="col-md-6 col-12 mb-25"></div>
+											<div class="col-md-6 col-12 mb-25"></div>
 										</div>
 									</form>
 								</div>

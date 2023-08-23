@@ -29,10 +29,22 @@ public class ProductDAO {
 			+ "FROM product JOIN category On product.category_id = category.id where product.id = ?";
 	private static final String SELECT_ALL_PRODUCT_BY_PRICE = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
 			+ "FROM product JOIN category On product.category_id = category.id "
-			+ "having selling_price between 100 and 200";
+			+ "having selling_price between ? and ?";
 	private static final String SELECT_ALL_PRODUCT_BY_PAGING = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
 			+ "FROM product JOIN category On product.category_id = category.id "
 			+ "LIMIT ?, ?";
+	private static final String SORTBY_TITLE_ASC = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
+			+ "FROM product JOIN category On product.category_id = category.id "
+			+ "order BY title ASC";
+	private static final String SORTBY_TITLE_DESC = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price \r\n"
+			+ "			FROM product JOIN category On product.category_id = category.id \r\n"
+			+ "			order BY title DESC";
+	private static final String SORTBY_PRICE_ASC = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
+			+ "FROM product JOIN category On product.category_id = category.id "
+			+ "order BY selling_price ASC";
+	private static final String SORTBY_PRICE_DESC = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
+			+ "FROM product JOIN category On product.category_id = category.id "
+			+ "order BY selling_price DESC";
 	
 	public List<Product> getAllProducts() throws SQLException {
 		Connection conn = null;
@@ -43,6 +55,126 @@ public class ProductDAO {
 			conn = DbUtil.makeConnection();
 
 			ps = conn.prepareStatement(SELECT_ALL_PRODUCT);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
+						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return list;
+	}
+	public List<Product> sortAllProductsByNameAZ() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<Product>();
+		try {
+			conn = DbUtil.makeConnection();
+
+			ps = conn.prepareStatement(SORTBY_TITLE_ASC);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
+						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return list;
+	}
+	public List<Product> sortAllProductsByNameZA() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<Product>();
+		try {
+			conn = DbUtil.makeConnection();
+
+			ps = conn.prepareStatement(SORTBY_TITLE_DESC);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
+						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return list;
+	}
+	public List<Product> sortAllProductsByPriceLowHigh() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<Product>();
+		try {
+			conn = DbUtil.makeConnection();
+
+			ps = conn.prepareStatement(SORTBY_PRICE_ASC);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
+						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return list;
+	}
+	public List<Product> sortAllProductsByPriceHighLow() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<Product>();
+		try {
+			conn = DbUtil.makeConnection();
+
+			ps = conn.prepareStatement(SORTBY_PRICE_DESC);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -178,27 +310,6 @@ public class ProductDAO {
 		return product;
 	}
 
-	 //function to convert blob binary to string:
-//	public String convertBlobToString(Blob blob) throws SQLException, IOException {
-//		
-//		InputStream inputStream = blob.getBinaryStream();
-//		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//		byte[] buffer = new byte[4096];
-//		int bytesRead = -1;
-//
-//		while ((bytesRead = inputStream.read(buffer)) != -1) {
-//			outputStream.write(buffer, 0, bytesRead);
-//		}
-//
-//		byte[] imageBytes = outputStream.toByteArray();
-//		String str = Base64.getEncoder().encodeToString(imageBytes);
-//
-//		inputStream.close();
-//		outputStream.close();
-//		
-//		return str;
-//	}
-
 	public List<Product> getProductsByPage(int pageIndex, int pageSize) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -231,38 +342,22 @@ public class ProductDAO {
 		return list;
 	}
 	
-	public Product getProductsByPrice(int productId) throws SQLException {
+	public List<Product> getProductsByPrice(int min, int max) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Product product = null;
+		List<Product> list = new ArrayList<Product>();
 		try {
 			conn = DbUtil.makeConnection();
 
 			ps = conn.prepareStatement(SELECT_ALL_PRODUCT_BY_PRICE);
-			ps.setInt(1, productId);
+			ps.setInt(1, min);
+			ps.setInt(2, max);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-
-				String title = rs.getString(2);
-				boolean lableIsNew = rs.getBoolean(3);
-				double price = rs.getDouble(4);
-				double discountedPrice = rs.getDouble(18);
-				String category = rs.getString(16);
-				int rating = rs.getInt(7);
-				String description = rs.getString(8);
-				int collectionId = rs.getInt(9);
-				String imageSrc1 = rs.getString(10);
-				String imageSrc2 = rs.getString(11);
-				String imageSrc3 = rs.getString(12);
-				String imageSrc4 = rs.getString(13);
-				String imageSrc5 = rs.getString(14);
-				
-				
-
-				product = new Product(productId, title, lableIsNew, price, discountedPrice, category, rating,
-						description, collectionId, imageSrc1, imageSrc2, imageSrc3, imageSrc4, imageSrc5);
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
+						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -277,6 +372,6 @@ public class ProductDAO {
 				conn.close();
 			}
 		}
-		return product;
+		return list;
 	}
 }

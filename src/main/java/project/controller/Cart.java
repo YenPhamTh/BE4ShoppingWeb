@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import project.dao.OrderDAO;
 import project.dao.ProductDAO;
 import project.dto.CartSession;
+import project.dto.OrderItem;
 import project.model.Product;
 import project.model.User;
 
@@ -63,6 +64,9 @@ public class Cart extends HttpServlet {
 			throws NumberFormatException, SQLException, IOException {
 		ProductDAO productService = new ProductDAO();
 		Product product = productService.getProductsById(Integer.parseInt(productId));
+		OrderItem orderItem = new OrderItem();
+		orderItem.setProduct(product);
+		orderItem.setQuantity(1);
 
 		HttpSession session = request.getSession();
 		CartSession cart = (CartSession) session.getAttribute("cart");
@@ -72,11 +76,12 @@ public class Cart extends HttpServlet {
 			User user = (User) session.getAttribute("user");
 			cart.setUserId(user.getId());
 		}
-		boolean isAddedSuccess = cart.getProducts().add(product);
+		
+		boolean isAddedSuccess = cart.getOrderItems().add(orderItem);
 		if (isAddedSuccess) {
 			// cart.setSubTotalPrice(product.getPrice()*quantity);
 			// cart.setTotalPrice(cart.getTotalPrice()+cart.getSubTotalPrice());
-			cart.setTotalPrice(cart.getTotalPrice() + product.getDiscountedPrice());
+			cart.setTotalPrice(cart.getTotalPrice() + orderItem.getProduct().getDiscountedPrice() * orderItem.getQuantity());
 
 			session.setAttribute("cart", cart);
 			// session.setAttribute("product", product);
@@ -88,12 +93,15 @@ public class Cart extends HttpServlet {
 			throws NumberFormatException, SQLException, IOException {
 		ProductDAO productService = new ProductDAO();
 		Product product = productService.getProductsById(Integer.parseInt(productId));
+		OrderItem orderItem = new OrderItem();
+		orderItem.setProduct(product);
+		orderItem.setQuantity(1);
 
 		HttpSession session = request.getSession();
 		CartSession cart = (CartSession) session.getAttribute("cart");
 		// remove product:
-		cart.getProducts().remove(product);
-		cart.setTotalPrice(cart.getTotalPrice() - product.getDiscountedPrice());
+		cart.getOrderItems().remove(orderItem);
+		cart.setTotalPrice(cart.getTotalPrice() - orderItem.getProduct().getDiscountedPrice() * orderItem.getQuantity());
 		session.setAttribute("cart", cart);
 		response.sendRedirect("cart.jsp");
 	}
@@ -118,5 +126,4 @@ public class Cart extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

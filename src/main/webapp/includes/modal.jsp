@@ -28,34 +28,19 @@
                                                 "nextArrow": {"buttonClass": "slick-btn slick-next", "iconClass": "fa fa-angle-right" }
                                                 }'>
 									<div class="lg-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-1.jpg"
-											alt=""> <a
-											href="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-1.jpg"></a>
+										<img src="${sessionScope.product.imageSrc1}" alt="">
 									</div>
 									<div class="lg-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-2.jpg"
-											alt=""> <a
-											href="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-2.jpg"></a>
+										<img src="${product.imageSrc2}" alt="">
 									</div>
 									<div class="lg-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-3.jpg"
-											alt=""> <a
-											href="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-3.jpg"></a>
+										<img src="${product.imageSrc3}" alt="">
 									</div>
 									<div class="lg-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-4.jpg"
-											alt=""> <a
-											href="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-4.jpg"></a>
+										<img src="${product.imageSrc4}" alt="">
 									</div>
 									<div class="lg-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-5.jpg"
-											alt=""> <a
-											href="https://htmldemo.net/ginza/ginza/assets/images/product/large-product/l-product-5.jpg"></a>
+										<img src="${product.imageSrc5}" alt="">
 									</div>
 								</div>
 								<div
@@ -82,29 +67,20 @@
                                                 }}
                                             ]'>
 									<div class="sm-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/small-product/s-product-1.jpg"
-											alt="product image thumb">
+										<img src="${product.imageSrc1}" alt="product image thumb">
 									</div>
 									<div class="sm-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/small-product/s-product-2.jpg"
-											alt="product image thumb">
+										<img src="${product.imageSrc2}" alt="product image thumb">
 									</div>
 									<div class="sm-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/small-product/s-product-3.jpg"
-											alt="product image thumb">
+										<img src="${product.imageSrc3}" alt="product image thumb">
 									</div>
 									<div class="sm-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/small-product/s-product-4.jpg"
-											alt="product image thumb">
+										<img src="${product.imageSrc4}" alt="product image thumb">
 									</div>
+									>
 									<div class="sm-image">
-										<img
-											src="https://htmldemo.net/ginza/ginza/assets/images/product/small-product/s-product-5.jpg"
-											alt="product image thumb">
+										<img src="${product.imageSrc5}" alt="product image thumb">
 									</div>
 								</div>
 							</div>

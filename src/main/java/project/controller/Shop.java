@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import project.dao.CategoryDAO;
+import project.dao.PriceRangeDAO;
+import project.dao.ProductColorDAO;
 import project.dao.ProductDAO;
 import project.model.Category;
+import project.model.PriceRange;
 import project.model.Product;
+import project.model.ProductColor;
 
 /**
  * Servlet implementation class homeServlet
@@ -32,22 +36,32 @@ public class Shop extends HttpServlet {
 			// get parameters
 			String categoryId = request.getParameter("categoryId");
 			String text = request.getParameter("text");
-//			String pageIndex = request.getParameter("pageIndex");
-			List<Product> productList = new ArrayList<Product>();
-
-			// show all categories in sidebar + no of products in each category
+			String min = request.getParameter("min");
+			String max = request.getParameter("max");
+			
 			CategoryDAO categoryDAO = new CategoryDAO();
 			List<Category> list = categoryDAO.getAllCategories();
-			// temporary show count products in each category
-
-			// show product list by category, by search
-			ProductDAO productDao = new ProductDAO();
-
+			
+			ProductColorDAO productColorDao = new ProductColorDAO();
+			List<ProductColor> colorList = productColorDao.getAllColor();
+			
+			PriceRangeDAO priceRangeDAO = new PriceRangeDAO();
+			List<PriceRange> priceList = priceRangeDAO.getAllRange();
+			
+			ProductDAO productDao = new ProductDAO();			
+			List<Product> productList = new ArrayList<Product>();
+			int countItems = 0;
 			if (categoryId != null) {
 				productList = productDao.getProductsByCate(Integer.parseInt(categoryId));
+				countItems = productList.size();
 
 			} else if (text != null) {
 				productList = productDao.getProductsByText(text);
+				countItems = productList.size();
+				
+			} else if (min !=null) {
+				productList = productDao.getProductsByPrice(Integer.parseInt(min), Integer.parseInt(max));
+				countItems = productList.size();
 
 			} else {
 				int pageIndex = 1;
@@ -55,10 +69,10 @@ public class Shop extends HttpServlet {
 					pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
 				}
 				productList = productDao.getProductsByPage(pageIndex, ITEMS_PER_PAGE);
+				countItems = productDao.getAllProducts().size();
 			}
 			// pagination: define total items & number of pages
-			double countItems = productDao.getAllProducts().size();
-			int endPage = (int) Math.ceil(countItems / ITEMS_PER_PAGE);
+			int endPage = (int) Math.ceil(productDao.getAllProducts().size() / ITEMS_PER_PAGE);
 
 			RequestDispatcher rd = request.getRequestDispatcher("shop.jsp");
 			request.setAttribute("categoryList", list);
@@ -68,6 +82,8 @@ public class Shop extends HttpServlet {
 			request.setAttribute("pageIndex", request.getParameter("pageIndex"));
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("productList", productList);
+			request.setAttribute("priceList", priceList);
+			request.setAttribute("colorList", colorList);
 			rd.forward(request, response);
 
 		} catch (SQLException e) {

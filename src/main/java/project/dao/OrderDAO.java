@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import project.dto.CartSession;
+import project.dto.OrderItem;
 import project.model.Product;
 import project.util.DbUtil;
 
@@ -33,12 +34,13 @@ public class OrderDAO {
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				int orderId = rs.getInt(1);
-				for(Product product : cart.getProducts()) {
+				for(OrderItem orderItem : cart.getOrderItems()) {
 					ps = conn.prepareStatement("INSERT INTO `be4_final_project`.`order_detail` "
-							+ "(`order_id`, `product_id`, `price`) VALUES (?,?,?)");
+							+ "(`order_id`, `product_id`, `price`, `quantity`) VALUES (?,?,?,?)");
 				ps.setInt(1, orderId);
-				ps.setInt(2, product.getId());
-				ps.setDouble(3, product.getDiscountedPrice());
+				ps.setInt(2, orderItem.getProduct().getId());
+				ps.setDouble(3, orderItem.getProduct().getDiscountedPrice());
+				ps.setInt(4, orderItem.getQuantity());
 				ps.execute();
 				}
 			}

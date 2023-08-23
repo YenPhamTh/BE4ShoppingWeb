@@ -162,6 +162,7 @@ button, input[type=submit] {
 }
 
 ul {
+  list-style-type: none;
   list-style: outside none none;
   margin: 0;
   padding: 0;

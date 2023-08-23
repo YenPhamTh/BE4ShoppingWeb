@@ -6,21 +6,22 @@ import java.util.Set;
 import project.model.Product;
 
 public class CartSession {
-	private Set<Product> products;
+	private Set<OrderItem> orderItems;
 	private double totalPrice;
 	private int userId;
 	
-	
 	public CartSession() {
-		this.products = new HashSet<Product>();
+		this.orderItems = new HashSet<OrderItem>();
 		
 	}
 	
-	public Set<Product> getProducts() {
-		return products;
+
+	public Set<OrderItem> getOrderItems() {
+		return orderItems;
 	}
-	public void setProducts(Set<Product> products) {
-		this.products = products;
+
+	public void setOrderItems(Set<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 	public double getTotalPrice() {

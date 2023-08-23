@@ -42,34 +42,29 @@
 
 					<div class="header-cart">
 						<a href="cart.jsp"><i class="ion-bag"></i> <span> <c:if
-									test="${empty sessionScope.cart.products}">0</c:if> <c:if
-									test="${not empty sessionScope.cart.products}">${sessionScope.cart.products.size()}</c:if>
+									test="${empty sessionScope.cart.orderItems}">0</c:if> <c:if
+									test="${not empty sessionScope.cart.orderItems}">${sessionScope.cart.orderItems.size()}</c:if>
 						</span></a>
 						<!--Mini Cart Dropdown Start-->
 						<div class="header-cart-dropdown">
 							<ul class="cart-items">
-								<c:forEach var="product" items="${sessionScope.cart.products}">
+								<c:forEach var="orderItem"
+									items="${sessionScope.cart.orderItems}">
 									<li class="single-cart-item">
 										<div class="cart-img">
-											<a href="cart.jsp"><img src="${product.imageSrc1}" alt=""></a>
+											<a href="cart.jsp"><img
+												src="${orderItem.product.imageSrc1}" alt=""></a>
 										</div>
 										<div class="cart-content">
 											<h5 class="product-name">
-												<a href="single-product.jsp">${product.title}</a>
+												<a href="single-product.jsp">${orderItem.product.title}</a>
 											</h5>
-											<span class="product-quantity">1—</span>
-											<c:if test="${product.discountedPrice > 0}">
-												<span class="discounted-price">$${product.discountedPrice}</span>
-												<span class="main-price discounted">$${product.price}</span>
-											</c:if>
-											<c:if test="${product.discountedPrice == 0}">
-												<span class="discounted-price">$${product.price}</span>
-											</c:if>
-
+											<span class="product-quantity">${orderItem.quantity}—</span>
+											<span class="discounted-price">$${orderItem.product.discountedPrice}</span>
 										</div>
 										<div class="cart-item-remove">
 											<button
-												onclick="window.location.href='Cart?command=REMOVE&productId=${product.id}'">
+												onclick="window.location.href='Cart?command=REMOVE&productId=${orderItem.product.id}'">
 												<i class="fa fa-trash-o"></i>
 											</button>
 										</div>
@@ -78,7 +73,7 @@
 							</ul>
 							<div class="cart-total">
 								<h5>
-									Subtotal :<span class="float-right">${sessionScope.cart.totalPrice}</span>
+									Total :<span class="float-right">${sessionScope.cart.totalPrice}</span>
 								</h5>
 							</div>
 							<div class="cart-btn">

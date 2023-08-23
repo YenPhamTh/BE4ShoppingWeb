@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import project.dao.ProductDAO;
 import project.model.Product;
@@ -49,7 +50,7 @@ public class ProductDetail extends HttpServlet {
 			request.setAttribute("product", product);
 			request.setAttribute("productId", productId);
 			rd.forward(request, response);
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

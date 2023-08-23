@@ -2,16 +2,13 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 
-<head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Checkout || Ginza</title>
+<title>Shop || LinhYen</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!-- All css files are included here. -->
 <jsp:include page="/includes/css-source.jsp"></jsp:include>
-
 </head>
 
 <body>
@@ -24,11 +21,10 @@
 
 		<!-- Page Banner Section Start -->
 		<div class="page-banner-section section bg-image"
-			data-bg="https://htmldemo.net/ginza/ginza/assets/images/bg/breadcrumb.jpg">
+			data-bg="assets/images/bg/banner.jpg">
 			<div class="container">
 				<div class="row">
 					<div class="col">
-
 						<div class="page-banner text-center">
 							<h2>Checkout</h2>
 							<ul class="page-breadcrumb">
@@ -36,7 +32,6 @@
 								<li>Checkout</li>
 							</ul>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -205,125 +200,125 @@
 									<div class="row">
 
 										<!-- Cart Total -->
-										<div class="col-12 mb-60">
+									</div>
+									<div class="col-12 mb-60">
 
-											<h4 class="checkout-title">Cart Total</h4>
+										<h4 class="checkout-title">Cart Total</h4>
 
-											<div class="checkout-cart-total">
-
-												<h4>
-													Product <span>Total</span>
-												</h4>
-
-												<ul>												
-													<c:forEach var="product" items="${sessionScope.orderSummary.products}">
-														<li>${product.title}<span>${product.discountedPrice}</span></li>										
+										<div class="checkout-cart-total">
+											<table class="table">
+												<thead>
+													<tr>
+														<th class="pro-title">Product</th>
+														<th class="pro-quantity">Quantity</th>
+														<th class="pro-price">Unit Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="orderItem"
+														items="${sessionScope.orderSummary.orderItems}">
+														<tr>
+															<td class="pro-title"><span>${orderItem.product.title}</span></td>
+															<td class="pro-quantity"><span>${orderItem.quantity}</span></td>
+															</td>
+															<td class="pro-price"><span>$${orderItem.product.discountedPrice}</span></td>
+														</tr>
 													</c:forEach>
-												</ul>
-
-												<p>
-													Sub Total <span>${sessionScope.orderSummary.totalPrice}</span>
-												</p>
-												<p>
-													Shipping Fee <span>$00.00</span>
-												</p>
-
+												</tbody>
+												</table>
 												<h4>
 													Grand Total <span>${sessionScope.orderSummary.totalPrice}</span>
 												</h4>
+										</div>
+									</div>
 
+									<!-- Payment Method -->
+									<div class="col-12 mb-30">
+
+										<h4 class="checkout-title">Payment Method</h4>
+
+										<div class="checkout-payment-method">
+
+											<div class="single-method">
+												<input type="radio" id="payment_check" name="payment-method"
+													value="check"> <label for="payment_check">Check
+													Payment</label>
+												<p data-method="check">Please send a Check to Store name
+													with Store Street, Store Town, Store State, Store Postcode,
+													Store Country.</p>
+											</div>
+
+											<div class="single-method">
+												<input type="radio" id="payment_bank" name="payment-method"
+													value="bank"> <label for="payment_bank">Direct
+													Bank Transfer</label>
+												<p data-method="bank">Please send a Check to Store name
+													with Store Street, Store Town, Store State, Store Postcode,
+													Store Country.</p>
+											</div>
+
+											<div class="single-method">
+												<input type="radio" id="payment_cash" name="payment-method"
+													value="cash"> <label for="payment_cash">Cash
+													on Delivery</label>
+												<p data-method="cash">Please send a Check to Store name
+													with Store Street, Store Town, Store State, Store Postcode,
+													Store Country.</p>
+											</div>
+
+											<div class="single-method">
+												<input type="radio" id="payment_paypal"
+													name="payment-method" value="paypal"> <label
+													for="payment_paypal">Paypal</label>
+												<p data-method="paypal">Please send a Check to Store
+													name with Store Street, Store Town, Store State, Store
+													Postcode, Store Country.</p>
+											</div>
+
+											<div class="single-method">
+												<input type="radio" id="payment_payoneer"
+													name="payment-method" value="payoneer"> <label
+													for="payment_payoneer">Payoneer</label>
+												<p data-method="payoneer">Please send a Check to Store
+													name with Store Street, Store Town, Store State, Store
+													Postcode, Store Country.</p>
+											</div>
+
+											<div class="single-method">
+												<input type="checkbox" id="accept_terms"> <label
+													for="accept_terms">I have read and accept the terms
+													& conditions</label>
 											</div>
 
 										</div>
 
-										<!-- Payment Method -->
-										<div class="col-12 mb-30">
-
-											<h4 class="checkout-title">Payment Method</h4>
-
-											<div class="checkout-payment-method">
-
-												<div class="single-method">
-													<input type="radio" id="payment_check"
-														name="payment-method" value="check"> <label
-														for="payment_check">Check Payment</label>
-													<p data-method="check">Please send a Check to Store
-														name with Store Street, Store Town, Store State, Store
-														Postcode, Store Country.</p>
-												</div>
-
-												<div class="single-method">
-													<input type="radio" id="payment_bank" name="payment-method"
-														value="bank"> <label for="payment_bank">Direct
-														Bank Transfer</label>
-													<p data-method="bank">Please send a Check to Store name
-														with Store Street, Store Town, Store State, Store
-														Postcode, Store Country.</p>
-												</div>
-
-												<div class="single-method">
-													<input type="radio" id="payment_cash" name="payment-method"
-														value="cash"> <label for="payment_cash">Cash
-														on Delivery</label>
-													<p data-method="cash">Please send a Check to Store name
-														with Store Street, Store Town, Store State, Store
-														Postcode, Store Country.</p>
-												</div>
-
-												<div class="single-method">
-													<input type="radio" id="payment_paypal"
-														name="payment-method" value="paypal"> <label
-														for="payment_paypal">Paypal</label>
-													<p data-method="paypal">Please send a Check to Store
-														name with Store Street, Store Town, Store State, Store
-														Postcode, Store Country.</p>
-												</div>
-
-												<div class="single-method">
-													<input type="radio" id="payment_payoneer"
-														name="payment-method" value="payoneer"> <label
-														for="payment_payoneer">Payoneer</label>
-													<p data-method="payoneer">Please send a Check to Store
-														name with Store Street, Store Town, Store State, Store
-														Postcode, Store Country.</p>
-												</div>
-
-												<div class="single-method">
-													<input type="checkbox" id="accept_terms"> <label
-														for="accept_terms">I have read and accept the
-														terms & conditions</label>
-												</div>
-
-											</div>
-
-											<button class="place-order btn btn-lg btn-round">Place
-												order</button>
-
-										</div>
+										<button class="place-order btn btn-lg btn-round">Place
+											order</button>
 
 									</div>
+
 								</div>
-
 							</div>
-						</form>
-
 					</div>
+					</form>
+
 				</div>
 			</div>
 		</div>
-		<!--Checkout section end-->
+	</div>
+	<!--Checkout section end-->
 
-		<!--NewsLetter section start-->
-		<jsp:include page="/includes/newsletter.jsp"></jsp:include>
-		<!--NewsLetter section end-->
+	<!--NewsLetter section start-->
+	<jsp:include page="/includes/newsletter.jsp"></jsp:include>
+	<!--NewsLetter section end-->
 
-		<!--Footer section start-->
-		<jsp:include page="/includes/footer.jsp"></jsp:include>
-		<!--Footer section end-->
+	<!--Footer section start-->
+	<jsp:include page="/includes/footer.jsp"></jsp:include>
+	<!--Footer section end-->
 
-		<!-- Modal Area Strat -->
-		<jsp:include page="/includes/modal.jsp"></jsp:include>
-		<!-- Modal Area End -->
+	<!-- Modal Area Strat -->
+	<jsp:include page="/includes/modal.jsp"></jsp:include>
+	<!-- Modal Area End -->
 
 	</div>
 

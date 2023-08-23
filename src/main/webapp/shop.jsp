@@ -64,24 +64,11 @@
 														class="fa fa-th-list"></i></a></li>
 											</ul>
 											<p>
-												Showing <b>${count}</b> results
+												Showing <b>${count}</b> products
 											</p>
 										</div>
 										<!--Toolbar Short Area Start-->
-										<div class="toolbar-short-area d-md-flex align-items-center">
-											<div class="toolbar-shorter ">
-												<label>Sort By:</label> <select class="wide">
-													<option data-display="Select">Nothing</option>
-													<option value="Relevance">Relevance</option>
-													<option value="Name, A to Z">Name, A to Z</option>
-													<option value="Name, Z to A">Name, Z to A</option>
-													<option value="Price, low to high">Price, low to
-														high</option>
-													<option value="Price, high to low">Price, high to
-														low</option>
-												</select>
-											</div>
-										</div>
+										
 										<!--Toolbar Short Area End-->
 									</div>
 									<!-- Grid & List View End -->
@@ -94,7 +81,8 @@
 										<h3 class="sidebar-title">Product categories</h3>
 										<ul class="sidebar-list">
 											<c:forEach var="category" items="${categoryList}">
-												<li><a href="Shop?categoryId=${category.id}"><input
+												<li class="${categoryId eq category.id ? "active":""} "><a
+													href="Shop?categoryId=${category.id}"><input
 														type="checkbox"> ${category.name} <!-- <span class="count">
 															(${count})</span> --> </a></li>
 												<br>
@@ -106,62 +94,33 @@
 									<div class="common-sidebar-widget">
 										<h3 class="sidebar-title">Filter by price</h3>
 										<div class="sidebar-price">
-											<div id="price-range" class="mb-20"></div>
-											<button type="button" class="btn">Filter</button>
-											<input type="text" id="price-amount" class="price-amount"
-												readonly>
+											<form>
+												<c:forEach var="priceRange" items="${priceList}">
+													<ul>
+														<a href="Shop?min=${priceRange.min}&max=${priceRange.max}">
+															<input type="radio" name="price"
+															value=${priceRange.priceRange}>${priceRange.priceRange}
+														</a>
+														<br>
+														<br>
+													</ul>
+												</c:forEach>
+											</form>
+
 										</div>
 									</div>
 									<!-- Single Sidebar End  -->
 									<!-- Single Sidebar Start  -->
 									<div class="common-sidebar-widget">
-										<h3 class="sidebar-title">Filter by color</h3>
-										<ul class="sidebar-list">
-											<li><a href="#"><i class="ion-plus"></i>Blue <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Red <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Green <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Cream <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Navy <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Pink <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Rose<span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Silver <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Burgundy <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>White <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Chocolate <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Brown <span
-													class="count">(1)</span></a></li>
-											<li><a href="#"><i class="ion-plus"></i>Beige <span
-													class="count">(1)</span></a></li>
+										<h3 class="sidebar-title">Filter by Color</h3>
+										<ul class="sidebar-tag">
+											<c:forEach var="color" items="${colorList}">
+												<li><a href="Shop?text=${color.color}">${color.color}</a></li>
+											</c:forEach>
 										</ul>
 									</div>
 									<!-- Single Sidebar End  -->
-									<!-- Single Sidebar Start  -->
-									<div class="common-sidebar-widget">
-										<h3 class="sidebar-title">Compare Products</h3>
-										<div class="compare-products-list">
-											<ul>
-												<li><a href="#" class="title">Cras neque metus</a> <a
-													href="#" class="remove-compare"><i class="fa fa-close"></i></a>
-												</li>
-												<li><a href="#" class="title">Cras neque metus</a> <a
-													href="#" class="remove-compare"><i class="fa fa-close"></i></a>
-												</li>
-											</ul>
-											<a href="#" class="clear-btn">Clear all</a>
-											<button type="button" class="btn compare-btn">Compare</button>
-										</div>
-									</div>
+									<!-- Single Sidebar Start - compare product  -->									
 									<!-- Single Sidebar End  -->
 								</div>
 								<div class="col-lg-9 order-lg-2 order-1">
@@ -178,7 +137,8 @@
 																		<div class="single-grid-product mb-30">
 																			<div class="product-image">
 																				<div class="product-label">
-																					<c:if test="${product.discountedPrice < product.price}">
+																					<c:if
+																						test="${product.discountedPrice < product.price}">
 																						<span class="sale">Sales</span>
 																					</c:if>
 
@@ -195,17 +155,8 @@
 																				<div
 																					class="product-action d-flex justify-content-between">
 																					<a class="product-btn"
-																						href="ProductDetail?productId=${product.id}">Add
+																						href="Cart?command=ADD_TO_CART&productId=${product.id}">Add
 																						to Cart</a>
-																					<ul class="d-flex">
-																						<li><a href="wishlist.jsp"><i
-																								class="ion-android-favorite-outline"></i></a></li>
-																						<li><a href="compare.jsp"><i
-																								class="ion-ios-shuffle"></i></a></li>
-																						<li><a href="#quick-view-modal-container"
-																							data-bs-toggle="modal" title="Quick View"><i
-																								class="ion-ios-search-strong"></i></a></li>
-																					</ul>
 																				</div>
 																			</div>
 																			<div class="product-content">
@@ -219,11 +170,13 @@
 																					<a href="ProductDetail?productId=${product.id}">${product.title}</a>
 																				</h3>
 																				<p class="product-price">
-																					<c:if test="${product.discountedPrice < product.price}">
+																					<c:if
+																						test="${product.discountedPrice < product.price}">
 																						<span class="discounted-price">$${product.discountedPrice}</span>
 																						<span class="main-price discounted">$${product.price}</span>
 																					</c:if>
-																					<c:if test="${product.discountedPrice == product.price}">
+																					<c:if
+																						test="${product.discountedPrice == product.price}">
 																						<span class="discounted-price">$${product.price}</span>
 																					</c:if>
 
@@ -233,44 +186,113 @@
 																		<!--  Single Grid product End -->
 																	</div>
 																</c:forEach>
-																<!-- Single List Product End -->
 															</div>
+															<!-- Single List Product End -->
 														</div>
+													</div>
+													<div id="list" class="tab-pane fade">
+														<div class="product-list-view">
+															<!-- Single List Product Start -->
+															<c:forEach var="product" items="${productList}">
+																<div class="product-list-item mb-40">
+																	<div class="row">
+																		<div class="col-md-4 col-sm-6">
+																			<div class="single-grid-product">
+																				<div class="product-image">
+																					<div class="product-label">
+																						<c:if
+																							test="${product.discountedPrice < product.price}">
+																							<span class="sale">Sales</span>
+																						</c:if>
+
+																						<c:if test="${product.lableIsNew == true}">
+																							<span class="new">New</span>
+																						</c:if>
+																					</div>
+																					<a href="ProductDetail?productId=${product.id}">
+																						<img src="${product.imageSrc1}" class="img-fluid"
+																						alt=""> <img src="${product.imageSrc2}"
+																						class="img-fluid" alt="">
+																					</a>
+
+																					<div
+																						class="product-action d-flex justify-content-between">
+																						<a class="product-btn"
+																							href="Cart?command=ADD_TO_CART&productId=${product.id}">Add
+																							to Cart</a>																		
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-md-8 col-sm-6">
+																			<div class="product-content-shop-list">
+																				<div class="product-content">
+																					<span class="category"><a href="shop.jsp">
+																							${product.category}</a>
+																						<h3 class="title">
+																							<a href="ProductDetail?productId=${product.id}">${product.title}</a>
+																						</h3>
+																						<div class="product-category-rating"></span> <span
+																						class="rating">Rating: ${product.rating} </span><span
+																						class="review"><a href="#">(1 review)</a></span>
+																				</div>
+																				<p class="product-price">
+																					<c:if
+																						test="${product.discountedPrice < product.price}">
+																						<span class="discounted-price">$${product.discountedPrice}</span>
+																						<span class="main-price discounted">$${product.price}</span>
+																					</c:if>
+																					<c:if
+																						test="${product.discountedPrice == product.price}">
+																						<span class="discounted-price">$${product.price}</span>
+																					</c:if>
+																				</p>
+																				<p class="product-desc">${product.description}</p>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+														</div>
+														</c:forEach>
+														<!-- Single List Product Start -->
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="row mb-30 mb-sm-40 mb-xs-30">
-										<div class="col">
-											<ul class="page-pagination">
-												<c:forEach begin="1" end="${endPage}" var="i">
-													<li class="${pageIndex == i?"active":""}" ><a
-														href="Shop?pageIndex=${i}">${i}</a></li>
-												</c:forEach>
-											</ul>
-										</div>
-									</div>
 								</div>
+							</div>
+						</div>
+						<div class="row mb-30 mb-sm-40 mb-xs-30">
+							<div class="col">
+								<ul class="page-pagination">
+									<c:forEach begin="1" end="${endPage}" var="i">
+										<li class="${pageIndex == i?"active":""}" ><a
+											href="Shop?pageIndex=${i}">${i}</a></li>
+									</c:forEach>
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- Shop Section End -->
+	</div>
+	</div>
+	</div>
+	<!-- Shop Section End -->
 
-		<!--NewsLetter section start-->
-		<jsp:include page="/includes/newsletter.jsp"></jsp:include>
-		<!--NewsLetter section end-->
+	<!--NewsLetter section start-->
+	<jsp:include page="/includes/newsletter.jsp"></jsp:include>
+	<!--NewsLetter section end-->
 
-		<!--Footer section start-->
-		<jsp:include page="/includes/footer.jsp"></jsp:include>
-		<!--Footer section end-->
+	<!--Footer section start-->
+	<jsp:include page="/includes/footer.jsp"></jsp:include>
+	<!--Footer section end-->
 
-		<!-- Modal Area Start -->
-		<jsp:include page="/includes/modal.jsp"></jsp:include>
-		<!-- Modal Area End -->
+	<!-- Modal Area Start -->
+	<jsp:include page="/includes/modal.jsp"></jsp:include>
+	<!-- Modal Area End -->
 
 	</div>
 
