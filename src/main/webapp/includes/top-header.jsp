@@ -73,11 +73,11 @@
 							</ul>
 							<div class="cart-total">
 								<h5>
-									Total :<span class="float-right">${sessionScope.cart.totalPrice}</span>
+									Total :<span class="float-right">$${sessionScope.cart.totalPrice}</span>
 								</h5>
 							</div>
 							<div class="cart-btn">
-								<a href="cart.jsp">View Cart</a> <a href="checkout.jsp">checkout</a>
+								<a href="cart.jsp">View Cart</a> <a href="Cart?command=CHECK_OUT">Checkout</a>
 							</div>
 						</div>
 						<!--Mini Cart Dropdown End-->

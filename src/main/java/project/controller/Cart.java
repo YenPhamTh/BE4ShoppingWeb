@@ -3,6 +3,7 @@ package project.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +22,7 @@ import project.model.User;
 public class Cart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final String REQUEST_REMOVE_ITEM_FROM_CART = "REMOVE";
-	//private final String REQUEST_ADD_TO_CART = "ADD_TO_CART";
+	// private final String REQUEST_ADD_TO_CART = "ADD_TO_CART";
 	private final String REQUEST_CHECK_OUT = "CHECK_OUT";
 
 	public Cart() {
@@ -61,7 +62,7 @@ public class Cart extends HttpServlet {
 	// functions:
 
 	public void addToCart(String productId, HttpServletRequest request, HttpServletResponse response)
-			throws NumberFormatException, SQLException, IOException {
+			throws NumberFormatException, SQLException, IOException, ServletException {
 		ProductDAO productService = new ProductDAO();
 		Product product = productService.getProductsById(Integer.parseInt(productId));
 		OrderItem orderItem = new OrderItem();
@@ -76,12 +77,13 @@ public class Cart extends HttpServlet {
 			User user = (User) session.getAttribute("user");
 			cart.setUserId(user.getId());
 		}
-		
+
 		boolean isAddedSuccess = cart.getOrderItems().add(orderItem);
 		if (isAddedSuccess) {
 			// cart.setSubTotalPrice(product.getPrice()*quantity);
 			// cart.setTotalPrice(cart.getTotalPrice()+cart.getSubTotalPrice());
-			cart.setTotalPrice(cart.getTotalPrice() + orderItem.getProduct().getDiscountedPrice() * orderItem.getQuantity());
+			cart.setTotalPrice(
+					cart.getTotalPrice() + orderItem.getProduct().getDiscountedPrice() * orderItem.getQuantity());
 
 			session.setAttribute("cart", cart);
 			// session.setAttribute("product", product);
@@ -101,7 +103,8 @@ public class Cart extends HttpServlet {
 		CartSession cart = (CartSession) session.getAttribute("cart");
 		// remove product:
 		cart.getOrderItems().remove(orderItem);
-		cart.setTotalPrice(cart.getTotalPrice() - orderItem.getProduct().getDiscountedPrice() * orderItem.getQuantity());
+		cart.setTotalPrice(
+				cart.getTotalPrice() - orderItem.getProduct().getDiscountedPrice() * orderItem.getQuantity());
 		session.setAttribute("cart", cart);
 		response.sendRedirect("cart.jsp");
 	}

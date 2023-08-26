@@ -124,13 +124,13 @@
 									<div class="cart-summary-wrap">
 										<h4>Cart Summary</h4>
 										<p>
-											Sub Total <span>${sessionScope.cart.totalPrice}</span>
+											Sub Total <span>$${sessionScope.cart.totalPrice}</span>
 										</p>
 										<p>
 											Shipping Cost <span>$00.00</span>
 										</p>
 										<h2>
-											Grand Total <span>${sessionScope.cart.totalPrice}</span>
+											Grand Total <span>$${sessionScope.cart.totalPrice}</span>
 										</h2>
 									</div>
 									<div class="cart-summary-button">

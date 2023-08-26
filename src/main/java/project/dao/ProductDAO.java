@@ -19,33 +19,31 @@ public class ProductDAO {
 	// function: public [dataType] [functionName](parameters){}
 	private static final String SELECT_ALL_PRODUCT = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
 			+ "FROM product JOIN category On product.category_id = category.id";
+	private static final String SELECT_BY_FILTERS = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price"
+			+ "			FROM product JOIN category On product.category_id = category.id\r\n"
+			+ "			where (category_id = ? or ? is null)" + "            AND (title like ? OR ? IS NULL)"
+			+ "            AND ((price between ? and ?) or ? is null);";
 	private static final String SELECT_ALL_PRODUCT_BY_CATEGORY = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
-			+ "FROM product JOIN category On product.category_id = category.id "
-			+ "where category_id = ?";
+			+ "FROM product JOIN category On product.category_id = category.id " + "where category_id = ?";
 	private static final String SELECT_ALL_PRODUCT_BY_SEARCH = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
-			+ "FROM product JOIN category On product.category_id = category.id "
-			+ "where title like ?";
+			+ "FROM product JOIN category On product.category_id = category.id " + "where title like ?";
 	private static final String SELECT_ALL_PRODUCT_BY_ID = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
 			+ "FROM product JOIN category On product.category_id = category.id where product.id = ?";
 	private static final String SELECT_ALL_PRODUCT_BY_PRICE = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
 			+ "FROM product JOIN category On product.category_id = category.id "
 			+ "having selling_price between ? and ?";
 	private static final String SELECT_ALL_PRODUCT_BY_PAGING = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
-			+ "FROM product JOIN category On product.category_id = category.id "
-			+ "LIMIT ?, ?";
+			+ "FROM product JOIN category On product.category_id = category.id " + "LIMIT ?, ?";
 	private static final String SORTBY_TITLE_ASC = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
-			+ "FROM product JOIN category On product.category_id = category.id "
-			+ "order BY title ASC";
+			+ "FROM product JOIN category On product.category_id = category.id " + "order BY title ASC";
 	private static final String SORTBY_TITLE_DESC = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price \r\n"
 			+ "			FROM product JOIN category On product.category_id = category.id \r\n"
 			+ "			order BY title DESC";
 	private static final String SORTBY_PRICE_ASC = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
-			+ "FROM product JOIN category On product.category_id = category.id "
-			+ "order BY selling_price ASC";
+			+ "FROM product JOIN category On product.category_id = category.id " + "order BY selling_price ASC";
 	private static final String SORTBY_PRICE_DESC = "SELECT *, if(discounted_price > 0, discounted_price, price) as selling_price "
-			+ "FROM product JOIN category On product.category_id = category.id "
-			+ "order BY selling_price DESC";
-	
+			+ "FROM product JOIN category On product.category_id = category.id " + "order BY selling_price DESC";
+
 	public List<Product> getAllProducts() throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -58,8 +56,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,6 +75,7 @@ public class ProductDAO {
 		}
 		return list;
 	}
+
 	public List<Product> sortAllProductsByNameAZ() throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -88,8 +88,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,6 +107,7 @@ public class ProductDAO {
 		}
 		return list;
 	}
+
 	public List<Product> sortAllProductsByNameZA() throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -118,8 +120,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,6 +139,7 @@ public class ProductDAO {
 		}
 		return list;
 	}
+
 	public List<Product> sortAllProductsByPriceLowHigh() throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -148,8 +152,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,6 +171,7 @@ public class ProductDAO {
 		}
 		return list;
 	}
+
 	public List<Product> sortAllProductsByPriceHighLow() throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -178,8 +184,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -192,6 +199,55 @@ public class ProductDAO {
 			}
 			if (conn != null) {
 				conn.close();
+			}
+		}
+		return list;
+	}
+
+	public List<Product> getProductsByFilters(String[] categories, String[] colors, String min, String max)
+			throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<Product>();
+		
+		//can sua lai code doan nay, can nhac nen loop ngoai java hay trong sql
+		// truong hop categories or colors is null --> not work
+		for (String categoryId : categories) {
+			for (String color : colors) {
+				try {
+					conn = DbUtil.makeConnection();
+
+					ps = conn.prepareStatement(SELECT_BY_FILTERS);
+					ps.setString(1, categoryId);
+					ps.setString(2, categoryId);
+					ps.setString(3, "%" + color + "%");
+					ps.setString(4, color);
+					ps.setString(5, min);
+					ps.setString(6, max);
+					ps.setString(7, min);
+					rs = ps.executeQuery();
+
+					while (rs.next()) {
+						list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4),
+								rs.getDouble(19), rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9),
+								rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13),
+								rs.getString(14)));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+
+				} finally {
+					if (rs != null) {
+						rs.close();
+					}
+					if (ps != null) {
+						ps.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+				}
 			}
 		}
 		return list;
@@ -210,8 +266,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -242,8 +299,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -278,8 +336,8 @@ public class ProductDAO {
 				String title = rs.getString(2);
 				boolean lableIsNew = rs.getBoolean(3);
 				double price = rs.getDouble(4);
-				double discountedPrice = rs.getDouble(18);
-				String category = rs.getString(16);
+				double discountedPrice = rs.getDouble(19);
+				String category = rs.getString(17);
 				int rating = rs.getInt(7);
 				String description = rs.getString(8);
 				int collectionId = rs.getInt(9);
@@ -288,8 +346,6 @@ public class ProductDAO {
 				String imageSrc3 = rs.getString(12);
 				String imageSrc4 = rs.getString(13);
 				String imageSrc5 = rs.getString(14);
-				
-				
 
 				product = new Product(productId, title, lableIsNew, price, discountedPrice, category, rating,
 						description, collectionId, imageSrc1, imageSrc2, imageSrc3, imageSrc4, imageSrc5);
@@ -323,8 +379,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -341,7 +398,7 @@ public class ProductDAO {
 		}
 		return list;
 	}
-	
+
 	public List<Product> getProductsByPrice(int min, int max) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -356,8 +413,9 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(18),
-						rs.getString(16), rs.getInt(7), rs.getString(8), rs.getInt(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14)));
+				list.add(new Product(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getDouble(4), rs.getDouble(19),
+						rs.getString(17), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getString(10),
+						rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

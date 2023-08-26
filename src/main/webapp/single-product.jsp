@@ -22,7 +22,6 @@
 <body>
 
 	<div id="main-wrapper">
-
 		<!--Header section start-->
 		<jsp:include page="/includes/top-header.jsp"></jsp:include>
 		<!--Header section end-->
@@ -140,8 +139,10 @@
 										<!--Product Nav End-->
 										<h2>${product.title}</h2>
 										<div class="single-product-reviews">
-											Rating ${product.rating} <a href="#">(??? customer
-												review)</a>
+											<c:forEach var="i" begin="1" end="${product.rating}">
+												<span class="rating"> <i class="fa fa-star"
+													style="color: orange"></i></span>
+											</c:forEach>
 										</div>
 										<div class="single-product-price">
 											<span class="price new-price">$${product.discountedPrice}</span>
@@ -160,7 +161,7 @@
 
 										</div>
 										<div class="product-meta">
-											<span class="posted-in"> Categories: <a href="#">${product.category}</a>
+											<span class="posted-in"> Categories: <a href="Shop">${product.category}</a>
 											</span>
 										</div>
 										<div class="single-product-sharing">
@@ -192,84 +193,17 @@
 					<div class="col-md-12">
 						<div class="product-review-tab section">
 							<!--Review And Description Tab Menu Start-->
-							<ul class="nav dec-and-review-menu">
-								<li><a class="active" data-bs-toggle="tab"
-									href="#description">Description</a></li>
-								<li><a data-bs-toggle="tab" href="#reviews">Reviews (1)</a>
-								</li>
-							</ul>
+							<h3>Review & Submit review - To be updated</h3>
 							<!--Review And Description Tab Menu End-->
 							<!--Review And Description Tab Content Start-->
-							<div class="tab-content product-review-content-tab"
-								id="myTabContent-4">
-								<div class="tab-pane fade active show" id="description">
-									<div class="single-product-description">
-										<p>${product.description}</p>
-										<p></p>
-									</div>
-								</div>
-								<div class="tab-pane fade" id="reviews">
-									<div class="review-page-comment">
-										<h2>Latest Reviews</h2>
-										<ul>
-											<li>
-												<div class="product-comment">
-													<img
-														src="https://htmldemo.net/ginza/ginza/assets/images/icons/author.png"
-														alt="">
-													<div class="product-comment-content">
-														<div class="product-reviews">
-															<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-																class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-																class="fa fa-star-o"></i>
-														</div>
-														<p class="meta">
-															<strong>admin</strong> - <span>November 22, 2018</span>
-														<div class="description">
-															<p>Good Product</p>
-														</div>
-													</div>
-												</div>
-											</li>
-										</ul>
-										<div class="review-form-wrapper">
-											<div class="review-form">
-												<span class="comment-reply-title">Add a review </span>
-												<form action="#">
-													<p class="comment-notes">
-														<span id="email-notes">Your email address will not
-															be published.</span> Required fields are marked <span
-															class="required">*</span>
-													</p>
-													<div class="comment-form-rating">
-														<label>Your rating</label>
-														<div class="rating">
-															<i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-													</div>
-													<div class="input-element">
-														<div class="comment-form-comment">
-															<label>Comment</label>
-															<textarea name="message" cols="40" rows="8"></textarea>
-														<div class="comment-submit">
-															<button type="submit" class="form-button">Submit</button>
-														</div>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
 							<!--Review And Description Tab Content End-->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--Product Description Review Section Start-->
+	</div>
+	<!--Product Description Review Section Start-->
 
 
 	<!--NewsLetter section start-->

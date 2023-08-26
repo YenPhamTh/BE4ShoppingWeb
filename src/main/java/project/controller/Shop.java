@@ -34,9 +34,9 @@ public class Shop extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			// get parameters
-			String categoryId = request.getParameter("categoryId");
+			String[] categories = request.getParameterValues("category");
+			String[] colors = request.getParameterValues("color");
 			String text = request.getParameter("text");
-			String min = request.getParameter("min");
 			String max = request.getParameter("max");
 			
 			CategoryDAO categoryDAO = new CategoryDAO();
@@ -51,18 +51,9 @@ public class Shop extends HttpServlet {
 			ProductDAO productDao = new ProductDAO();			
 			List<Product> productList = new ArrayList<Product>();
 			int countItems = 0;
-			if (categoryId != null) {
-				productList = productDao.getProductsByCate(Integer.parseInt(categoryId));
+			if (categories != null || colors != null) {
+				productList = productDao.getProductsByFilters(categories, colors, "0", max);
 				countItems = productList.size();
-
-			} else if (text != null) {
-				productList = productDao.getProductsByText(text);
-				countItems = productList.size();
-				
-			} else if (min !=null) {
-				productList = productDao.getProductsByPrice(Integer.parseInt(min), Integer.parseInt(max));
-				countItems = productList.size();
-
 			} else {
 				int pageIndex = 1;
 				if (request.getParameter("pageIndex") != null) {
@@ -76,7 +67,6 @@ public class Shop extends HttpServlet {
 
 			RequestDispatcher rd = request.getRequestDispatcher("shop.jsp");
 			request.setAttribute("categoryList", list);
-			request.setAttribute("categoryId", categoryId);
 			request.setAttribute("search", text);
 			request.setAttribute("count", countItems);
 			request.setAttribute("pageIndex", request.getParameter("pageIndex"));

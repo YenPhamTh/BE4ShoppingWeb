@@ -91,11 +91,9 @@
 
 											<div class="col-md-6 col-12 mb-20">
 												<label>Country*</label> <select class="nice-select">
-													<option>Bangladesh</option>
-													<option>China</option>
-													<option>country</option>
-													<option>India</option>
-													<option>Japan</option>
+													<option>Vietnam</option>
+													<option>Singapore</option>
+													<option>Australia</option>
 												</select>
 											</div>
 
@@ -168,11 +166,9 @@
 
 											<div class="col-md-6 col-12 mb-20">
 												<label>Country*</label> <select class="nice-select">
-													<option>Bangladesh</option>
-													<option>China</option>
-													<option>country</option>
-													<option>India</option>
-													<option>Japan</option>
+													<option>Vietnam</option>
+													<option>Singapore</option>
+													<option>Australia</option>
 												</select>
 											</div>
 
@@ -220,14 +216,13 @@
 														<tr>
 															<td class="pro-title"><span>${orderItem.product.title}</span></td>
 															<td class="pro-quantity"><span>${orderItem.quantity}</span></td>
-															</td>
 															<td class="pro-price"><span>$${orderItem.product.discountedPrice}</span></td>
 														</tr>
 													</c:forEach>
 												</tbody>
 												</table>
 												<h4>
-													Grand Total <span>${sessionScope.orderSummary.totalPrice}</span>
+													Grand Total <span>$${sessionScope.orderSummary.totalPrice}</span>
 												</h4>
 										</div>
 									</div>

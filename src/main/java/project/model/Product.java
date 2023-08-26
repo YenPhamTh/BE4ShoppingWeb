@@ -17,6 +17,7 @@ public class Product {
 	private String imageSrc3;
 	private String imageSrc4;
 	private String imageSrc5;
+	private String detail;
 	
 	public Product() {
 		super();

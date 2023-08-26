@@ -68,7 +68,7 @@
 											</p>
 										</div>
 										<!--Toolbar Short Area Start-->
-										
+
 										<!--Toolbar Short Area End-->
 									</div>
 									<!-- Grid & List View End -->
@@ -76,51 +76,42 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-3 order-lg-1 order-2">
-									<!-- Single Sidebar Start  -->
-									<div class="common-sidebar-widget">
-										<h3 class="sidebar-title">Product categories</h3>
-										<ul class="sidebar-list">
-											<c:forEach var="category" items="${categoryList}">
-												<li class="${categoryId eq category.id ? "active":""} "><a
-													href="Shop?categoryId=${category.id}"><input
-														type="checkbox"> ${category.name} <!-- <span class="count">
-															(${count})</span> --> </a></li>
-												<br>
-											</c:forEach>
-										</ul>
-									</div>
-									<!-- Single Sidebar End  -->
-									<!-- Single Sidebar Start  -->
-									<div class="common-sidebar-widget">
-										<h3 class="sidebar-title">Filter by price</h3>
-										<div class="sidebar-price">
-											<form>
-												<c:forEach var="priceRange" items="${priceList}">
-													<ul>
-														<a href="Shop?min=${priceRange.min}&max=${priceRange.max}">
-															<input type="radio" name="price"
-															value=${priceRange.priceRange}>${priceRange.priceRange}
-														</a>
-														<br>
-														<br>
-													</ul>
+									<form method="get" action="Shop">
+										<!-- Single Sidebar Start  -->
+										<div class="common-sidebar-widget">
+											<h3 class="sidebar-title">Product categories</h3>
+											<ul class="sidebar-list">
+												<c:forEach var="category" items="${categoryList}">
+													<li><input type="checkbox" name="category"
+														value="${category.id}"> ${category.name}</li>
 												</c:forEach>
-											</form>
-
+											</ul>
 										</div>
-									</div>
+										<!-- Single Sidebar End  -->
+										<!-- Single Sidebar Start  -->
+										<div class="common-sidebar-widget">
+											<h3 class="sidebar-title">Filter by price</h3>
+											<input type="range" name="max" id="range_weight" value="500"
+												min="1" max="500"
+												oninput="range_weight_disp.value = range_weight.value">
+											<output id="range_weight_disp"></output>
+										</div>
+										<!-- Single Sidebar End  -->
+										<!-- Single Sidebar Start  -->
+										<div class="common-sidebar-widget">
+											<h3 class="sidebar-title">Filter by Color</h3>
+											<ul class="sidebar-tag">
+												<c:forEach var="color" items="${colorList}">
+													<li><input type="checkbox" name="color"
+														value="${color.color}"> ${color.color}</li>
+												</c:forEach>
+											</ul>
+										</div>
+										<input type="submit" value="Search" /> <input type="reset"
+											value="Clear" href="Shop" />
+									</form>
 									<!-- Single Sidebar End  -->
-									<!-- Single Sidebar Start  -->
-									<div class="common-sidebar-widget">
-										<h3 class="sidebar-title">Filter by Color</h3>
-										<ul class="sidebar-tag">
-											<c:forEach var="color" items="${colorList}">
-												<li><a href="Shop?text=${color.color}">${color.color}</a></li>
-											</c:forEach>
-										</ul>
-									</div>
-									<!-- Single Sidebar End  -->
-									<!-- Single Sidebar Start - compare product  -->									
+									<!-- Single Sidebar Start - compare product  -->
 									<!-- Single Sidebar End  -->
 								</div>
 								<div class="col-lg-9 order-lg-2 order-1">
@@ -162,8 +153,12 @@
 																			<div class="product-content">
 																				<div class="product-category-rating">
 																					<span class="category"><a href="shop.jsp">
-																							${product.category}</a></span> <span class="rating">Rating:
-																						${product.rating} </span>
+																							${product.category}</a></span>
+																					
+																					<c:forEach var="i" begin="1" end="${product.rating}">
+																					<span class="rating">
+																						<i class="fa fa-star" style="color:orange"></i></span>
+																					</c:forEach> 	
 																				</div>
 
 																				<h3 class="title">
@@ -219,7 +214,7 @@
 																						class="product-action d-flex justify-content-between">
 																						<a class="product-btn"
 																							href="Cart?command=ADD_TO_CART&productId=${product.id}">Add
-																							to Cart</a>																		
+																							to Cart</a>
 																					</div>
 																				</div>
 																			</div>
@@ -232,9 +227,11 @@
 																						<h3 class="title">
 																							<a href="ProductDetail?productId=${product.id}">${product.title}</a>
 																						</h3>
-																						<div class="product-category-rating"></span> <span
-																						class="rating">Rating: ${product.rating} </span><span
-																						class="review"><a href="#">(1 review)</a></span>
+																						<div class="product-category-rating"></span>
+																						<span
+																						class="rating">Rating: ${product.rating} <i class="fa fa-star"></i></span>
+																						<span
+																						class="review"><a href="#"></a></span>
 																				</div>
 																				<p class="product-price">
 																					<c:if

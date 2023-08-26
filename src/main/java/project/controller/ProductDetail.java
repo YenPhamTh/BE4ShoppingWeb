@@ -48,8 +48,13 @@ public class ProductDetail extends HttpServlet {
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("single-product.jsp");
 			request.setAttribute("product", product);
-			request.setAttribute("productId", productId);
+			request.setAttribute("productId", productId);			
+
 			rd.forward(request, response);
+			
+			HttpSession session = request.getSession(false);
+			session.setAttribute("productId", productId);
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -63,7 +68,7 @@ public class ProductDetail extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }

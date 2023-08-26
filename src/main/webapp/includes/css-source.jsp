@@ -11,3 +11,4 @@
 <link rel="stylesheet" href="assets/css/plugins.css">
 <link rel="stylesheet" href="assets/css/helper.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/star.css">
